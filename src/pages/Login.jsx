@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Typography, TextField, Button, Link } from '@mui/material';
+import { Grid, Typography, TextField, Button, Link, Stack } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { lightGreen } from '@mui/material/colors';
 import AuthImg from '../assets/peasent.svg';
@@ -16,11 +16,9 @@ const Login = () => {
 
     return (
         <ThemeProvider theme={theme}>
-            <Grid container>
-                <Grid item mt={2} md={7} xs={12}>
-                    <img src={AuthImg} alt='auth' width={950}/>
-                </Grid>
-                <Grid item mt={15} p={5} md={5} xs={12}>
+            <Grid container direction='row' justifyContent='space-center' alignItems='center'>
+                <img src={AuthImg} alt='auth' width={950} />
+                <Stack direction='column'>
                     <Typography variant='h3' color='primary' sx={{
                         fontWeight: 'bold',
                     }}>
@@ -40,7 +38,7 @@ const Login = () => {
                             Daftar
                         </Link>
                     </Typography>
-                </Grid>
+                </Stack>
             </Grid>
         </ThemeProvider>
     )
