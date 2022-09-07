@@ -1,6 +1,6 @@
-import { Box, Container, Grid, ThemeProvider, createTheme, Toolbar, Typography } from '@mui/material';
+import { Box, Container, Grid, ThemeProvider, createTheme, Toolbar, Typography, IconButton } from '@mui/material';
 import { lightGreen } from '@mui/material/colors';
-import CopyrightIcon from '@mui/icons-material/Copyright';
+import { Facebook, Instagram, LinkedIn, Twitter } from '@mui/icons-material';
 import React from 'react';
 
 const Footer = () => {
@@ -8,13 +8,13 @@ const Footer = () => {
         palette: {
             primary: {
                 main: lightGreen[500],
-                // contrastText: '#fff',
+                contrastText: '#fff',
             }
         },
     });
     return (
         <ThemeProvider theme={theme}>
-            <Container disableGutters={true} maxWidth sx={{ backgroundColor: 'primary.main', mb: -1 }}>
+            <Container disableGutters={true} sx={{ backgroundColor: 'primary.main', mb: -1, display: { xs: 'none', md: 'flex' } }}>
                 <Grid container direction='row' justifyContent='space-around' alignItems='center'>
                     <Toolbar disableGutters>
                         <Box sx={{
@@ -27,8 +27,21 @@ const Footer = () => {
                             },
                         }} />
                     </Toolbar>
-                    <Typography variant='body1'>Copyright {<CopyrightIcon />} 2022 Jovan Alvado A.M</Typography>
-                    <Typography variant='body1'>Social Media</Typography>
+                    <Typography variant='body1' sx={{ color: '#fff' }}>Copyright 2022 - Jovan Alvado A.M</Typography>
+                    <Grid item>
+                        <IconButton href='facebook.com' target='_blank' aria-label="delete" size="large" sx={{color: '#fff'}}>
+                            <Facebook fontSize="inherit" />
+                        </IconButton>
+                        <IconButton href='instagram.com' target='_blank' aria-label="delete" size="large" sx={{color: '#fff'}}>
+                            <Instagram fontSize="inherit" />
+                        </IconButton>
+                        <IconButton href='twitter.com' target='_blank' aria-label="delete" size="large" sx={{color: '#fff'}}>
+                            <Twitter fontSize="inherit" />
+                        </IconButton>
+                        <IconButton href='linkedin.com' target='_blank' aria-label="delete" size="large" sx={{color: '#fff'}}>
+                            <LinkedIn fontSize="inherit" />
+                        </IconButton>
+                    </Grid>
                 </Grid>
             </Container>
         </ThemeProvider>

@@ -2,8 +2,6 @@ import React from 'react';
 import '../../node_modules/slick-carousel/slick/slick.css';
 import '../../node_modules/slick-carousel/slick/slick-theme.css';
 import Banner from '../assets/Banner.svg';
-import Slider from 'react-slick';
-import $ from 'jquery';
 import { Box, Container, Grid } from '@mui/material';
 import { lightGreen, grey } from '@mui/material/colors';
 
@@ -17,7 +15,8 @@ const Hero = () => {
                 backgroundColor: lightGreen[500],
                 borderTopRightRadius: 20,
                 borderBottomRightRadius: 20,
-                ml: -1
+                ml: -1,
+                display: {xs: 'none', md: 'block'}
             }} />
             <Box><img src={Banner} /></Box>
             <Box sx={{
@@ -26,7 +25,8 @@ const Hero = () => {
                 backgroundColor: lightGreen[500],
                 borderTopLeftRadius: 20,
                 borderBottomLeftRadius: 20,
-                mr: -1
+                mr: -1,
+                display: {xs: 'none', md: 'block'}
             }} />
         </Grid>
         // </Container>

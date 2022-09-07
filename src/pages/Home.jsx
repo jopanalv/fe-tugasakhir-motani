@@ -1,5 +1,6 @@
 import { Divider, Container } from '@mui/material';
 import React from 'react';
+import BotNavbar from '../components/BotNavbar';
 import Footer from '../components/Footer';
 import Hero from '../components/Hero';
 import LatestSection from '../components/LatestSection';
@@ -12,7 +13,7 @@ const Home = () => {
       <Navbar />
       <Hero />
       <Container fixed>
-        <LatestSection />
+        {/* <LatestSection /> */}
         <Divider sx={{ my: 3 }} />
         <PostByCategory />
         <Divider sx={{ my: 3 }} />
@@ -21,6 +22,7 @@ const Home = () => {
         <PostByCategory />
         <Divider sx={{ my: 3 }} />
       </Container>
+      <BotNavbar />
       <Footer />
     </>
   )

@@ -43,6 +43,7 @@ const Navbar = () => {
                                     backgroundColor: 'primary',
                                     opacity: [0.9, 0.8, 0.7],
                                 },
+                                display: { xs: 'none', md: 'block' }
                             }} />
                         </Toolbar>
                         <Stack direction='row' spacing={1}>
@@ -60,7 +61,7 @@ const Navbar = () => {
                                     borderRadius: 4,
                                     textTransform: 'none',
                                     color: '#000',
-                                    mr: 2
+                                    mr: { sx: 1, md: 2 },
                                 }}
                             >
                                 Kategori
@@ -78,7 +79,7 @@ const Navbar = () => {
                                 <MenuItem>My account</MenuItem>
                                 <MenuItem>Logout</MenuItem>
                             </Menu>
-                            <FormControl sx={{ width: '438px' }}>
+                            <FormControl sx={{ width: { xs: '270px' } }}>
                                 <OutlinedInput
                                     id='outlined-adornment-password'
                                     type='text'
@@ -92,7 +93,7 @@ const Navbar = () => {
                                 />
                             </FormControl>
                         </Stack>
-                        <Button variant='contained' startIcon={<LoginIcon />} sx={{ color: '#fff' }}>Login</Button>
+                        <Button variant='contained' href='/login' startIcon={<LoginIcon />} sx={{ color: '#fff', display: { xs: 'none', md: 'inherit' } }}>Login</Button>
                     </Grid>
                 </Container>
             </AppBar>

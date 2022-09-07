@@ -20,7 +20,7 @@ const PostByCategory = () => {
                     Lihat semua
                 </Button>
             </Grid>
-            <Grid container direction='row' justifyContent='space-between' alignItems='center'>
+            <Grid container spacing={1} direction='row' justifyContent='space-between' alignItems='center'>
                 <CardList />
                 <CardList />
                 <CardList />
