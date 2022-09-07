@@ -4,7 +4,7 @@ import Traktor from '../assets/Traktor.svg';
 
 const CardList = () => {
     return (
-        <Card sx={{maxWidth: 200}}>
+        <Card sx={{maxWidth: 200, mb: {xs: 3}}}>
             <CardActionArea>
                 <CardMedia component='img' height='133' width='200' image={Traktor} alt='traktor'/>
                 <CardContent>
