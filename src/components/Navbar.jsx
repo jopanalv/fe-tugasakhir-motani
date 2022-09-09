@@ -1,10 +1,11 @@
-import { AppBar, Box, Container, Toolbar, Grid, Stack, FormControl, OutlinedInput, InputAdornment, Button, Menu, MenuItem } from '@mui/material';
-import React from 'react';
+import { AppBar, Box, Container, Toolbar, Grid, Stack, FormControl, OutlinedInput, InputAdornment, Button, Menu, MenuItem, Avatar } from '@mui/material';
+import React, { useState } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { lightGreen, grey } from '@mui/material/colors';
 import SearchIcon from '@mui/icons-material/Search';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import LoginIcon from '@mui/icons-material/Login';
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
     const theme = createTheme({
@@ -20,7 +21,9 @@ const Navbar = () => {
         },
     });
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const { isLoged, user } = useSelector(state => state.auth)
+
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -93,7 +96,15 @@ const Navbar = () => {
                                 />
                             </FormControl>
                         </Stack>
-                        <Button variant='contained' href='/login' startIcon={<LoginIcon />} sx={{ color: '#fff', display: { xs: 'none', md: 'inherit' } }}>Login</Button>
+                        {isLoged ? (
+                            <Stack direction='row' spacing={1}>
+                                <Button>
+                                    <Avatar>{user?.email[0]}</Avatar>
+                                </Button>
+                            </Stack>
+                        ) : (
+                            <Button variant='contained' href='/login' startIcon={<LoginIcon />} sx={{ color: '#fff', display: { xs: 'none', md: 'inherit' } }}>Login</Button>
+                        )}
                     </Grid>
                 </Container>
             </AppBar>
