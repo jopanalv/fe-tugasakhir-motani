@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid, Typography, IconButton, TextField, Button, Link, Stack, Box } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { lightGreen } from '@mui/material/colors';
 import { ChevronLeft } from '@mui/icons-material';
 import AuthImg from '../assets/peasent.svg';
+import { LoginUser } from '../redux/action/authAction';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const theme = createTheme({
@@ -14,6 +17,28 @@ const Login = () => {
             },
         },
     });
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { isLoged } = useSelector(state => state.auth);
+
+    const [user, setUser] = useState({
+        email: '',
+        password: ''
+    })
+
+    const handleLogin = (e) => {
+        e.preventDefault()
+        dispatch(LoginUser(user))
+        setUser({
+            email: '',
+            password: ''
+        })
+    }
+
+    useEffect(() => {
+        if (isLoged) return navigate('/')
+    })
 
     return (
         <ThemeProvider theme={theme}>
@@ -33,13 +58,15 @@ const Login = () => {
                         </Typography>
                     </Stack>
                     <Typography mb={2} variant='body2'>Masuk menggunakan akun yang sudah didaftarkan sebelumnya.</Typography>
-                    <TextField id='outlined-basic margin-normal' label='Email' type='text' margin='normal' fullWidth />
-                    <TextField id='outlined-basic margin-normal' label='Password' type='password' margin='normal' fullWidth />
-                    <Button variant='contained' color='primary' href='#contained-buttons' size='large' sx={{
-                        mt: 2
-                    }} fullWidth>
-                        Login
-                    </Button>
+                    <form onSubmit={handleLogin}>
+                        <TextField id='outlined-basic margin-normal' label='Email' type='text' margin='normal' value={user.email} onChange={(e) => setUser({ ...user, email: e.target.value })} fullWidth />
+                        <TextField id='outlined-basic margin-normal' label='Password' type='password' margin='normal' value={user.password} onChange={(e) => setUser({ ...user, password: e.target.value })} fullWidth />
+                        <Button type='submit' variant='contained' color='primary' size='large' sx={{
+                            mt: 2
+                        }} fullWidth>
+                            Login
+                        </Button>
+                    </form>
                     <Typography variant='body2' mt={2} align='center'>
                         Belum punya akun?
                         <Link href='/register' ml={1} variant='body2' underline='none'>
