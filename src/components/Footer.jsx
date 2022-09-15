@@ -29,17 +29,17 @@ const Footer = () => {
                     </Toolbar>
                     <Typography variant='body1' sx={{ color: '#fff' }}>Copyright 2022 - Jovan Alvado A.M</Typography>
                     <Grid item>
-                        <IconButton href='facebook.com' target='_blank' aria-label="delete" size="large" sx={{color: '#fff'}}>
-                            <Facebook fontSize="inherit" />
+                        <IconButton href='facebook.com' target='_blank' aria-label='delete' size='large' sx={{color: '#fff'}}>
+                            <Facebook fontSize='inherit' />
                         </IconButton>
-                        <IconButton href='instagram.com' target='_blank' aria-label="delete" size="large" sx={{color: '#fff'}}>
-                            <Instagram fontSize="inherit" />
+                        <IconButton href='instagram.com' target='_blank' aria-label='delete' size='large' sx={{color: '#fff'}}>
+                            <Instagram fontSize='inherit' />
                         </IconButton>
-                        <IconButton href='twitter.com' target='_blank' aria-label="delete" size="large" sx={{color: '#fff'}}>
-                            <Twitter fontSize="inherit" />
+                        <IconButton href='twitter.com' target='_blank' aria-label='delete' size='large' sx={{color: '#fff'}}>
+                            <Twitter fontSize='inherit' />
                         </IconButton>
-                        <IconButton href='linkedin.com' target='_blank' aria-label="delete" size="large" sx={{color: '#fff'}}>
-                            <LinkedIn fontSize="inherit" />
+                        <IconButton href='linkedin.com' target='_blank' aria-label='delete' size='large' sx={{color: '#fff'}}>
+                            <LinkedIn fontSize='inherit' />
                         </IconButton>
                     </Grid>
                 </Grid>

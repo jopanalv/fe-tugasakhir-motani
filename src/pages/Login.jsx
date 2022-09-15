@@ -48,8 +48,8 @@ const Login = () => {
                 </Box>
                 <Stack direction='column' sx={{ mt: { xs: 15, md: 0 } }}>
                     <Stack direction='row'>
-                        <IconButton href='/' aria-label="delete" size="large" sx={{ display: { xs: 'block', md: 'none' } }}>
-                            <ChevronLeft fontSize="large" />
+                        <IconButton href='/' aria-label='delete' size='large' sx={{ display: { xs: 'block', md: 'none' } }}>
+                            <ChevronLeft fontSize='large' />
                         </IconButton>
                         <Typography variant='h3' color='primary' sx={{
                             fontWeight: 'bold',

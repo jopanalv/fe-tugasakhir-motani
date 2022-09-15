@@ -1,6 +1,6 @@
-import axios from "axios";
-import { BASE_URL } from "../../utils/baseUrl";
-import jwtDecode from "jwt-decode";
+import axios from 'axios';
+import { BASE_URL } from '../../utils/baseUrl';
+import jwtDecode from 'jwt-decode';
 
 export const LoginUser = (data) => {
     return (dispatch) => {
