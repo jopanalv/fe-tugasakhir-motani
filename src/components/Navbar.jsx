@@ -22,7 +22,7 @@ const Navbar = () => {
     });
 
     const [anchorEl, setAnchorEl] = useState(null);
-    const { isLoged, user } = useSelector(state => state.auth)
+    const { isLoged, user } = useSelector(state => state.auth);
 
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -98,7 +98,7 @@ const Navbar = () => {
                         </Stack>
                         {isLoged ? (
                             <Stack direction='row' spacing={1}>
-                                <Button>
+                                <Button href='/profile'>
                                     <Avatar>{user?.email[0]}</Avatar>
                                 </Button>
                             </Stack>

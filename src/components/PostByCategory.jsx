@@ -16,7 +16,7 @@ const PostByCategory = () => {
         <ThemeProvider theme={theme}>
             <Grid container direction='row' mb={3}>
                 <Typography variant='h5' sx={{ fontWeight: 'bold' }}>Kategori</Typography>
-                <Button variant="contained" size="small" sx={{ textDecoration: 'none', ml: 2 }}>
+                <Button variant='contained' size='small' sx={{ textDecoration: 'none', ml: 2 }}>
                     Lihat semua
                 </Button>
             </Grid>
