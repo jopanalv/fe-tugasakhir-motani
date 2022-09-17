@@ -4,6 +4,7 @@ import { Avatar, Button, Stack, Typography, Container, Grid } from '@mui/materia
 import { Settings, ShoppingCart, Logout } from '@mui/icons-material';
 import { lightGreen, grey } from '@mui/material/colors';
 import BotNavbar from '../components/BotNavbar';
+import Footer from '../components/Footer';
 
 const ProfileMenu = () => {
     return (
@@ -14,7 +15,7 @@ const ProfileMenu = () => {
                     <Avatar alt='profile image' sx={{ width: 100, height: 100, mt: 13 }} />
                     <Typography variant='h6'>Nama/email</Typography>
                 </Stack>
-                <Stack mt={5} spacing={3}>
+                <Stack mt={5} spacing={3} sx={{mb: 13.5, mx: {xs: 0, md: 30}}}>
                     <Button sx={{ p: 2, borderBottom: 3, borderBottomColor: lightGreen[500], borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }} fullWidth>
                         <Grid container direction='row' justifyContent='space-between' alignItems='center'>
                             <Typography color={'#000'}>Ubah Profil</Typography>
@@ -37,6 +38,7 @@ const ProfileMenu = () => {
                 </Stack>
             </Container>
             <BotNavbar />
+            <Footer />
         </>
     )
 }
