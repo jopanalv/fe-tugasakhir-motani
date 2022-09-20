@@ -6,6 +6,8 @@ import Register from './pages/Register';
 import ProfileMenu from './pages/ProfileMenu';
 import './App.css';
 import ProductDetail from './pages/ProductDetail';
+import CategoryDetail from './pages/CategoryDetail';
+import DashboardSeller from './pages/DashboardSeller';
 
 function App() {
 
@@ -17,6 +19,8 @@ function App() {
         <Route path='/register' element={<Register />} />
         <Route path='/profile' element={<ProfileMenu />} />
         <Route path='/detail' element={<ProductDetail />} />
+        <Route path='/category' element={<CategoryDetail />} />
+        <Route path='/dashboard' element={<DashboardSeller />} />
       </Routes>
     </BrowserRouter>
   )
