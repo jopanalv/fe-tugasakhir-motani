@@ -8,6 +8,8 @@ import './App.css';
 import ProductDetail from './pages/ProductDetail';
 import CategoryDetail from './pages/CategoryDetail';
 import DashboardSeller from './pages/DashboardSeller';
+import AddProduct from './pages/AddProduct';
+import EditProduct from './pages/EditProduct';
 
 function App() {
 
@@ -21,6 +23,8 @@ function App() {
         <Route path='/detail' element={<ProductDetail />} />
         <Route path='/category' element={<CategoryDetail />} />
         <Route path='/dashboard' element={<DashboardSeller />} />
+        <Route path='/product/add' element={<AddProduct />} />
+        <Route path='/product/edit' element={<EditProduct />} />
       </Routes>
     </BrowserRouter>
   )
