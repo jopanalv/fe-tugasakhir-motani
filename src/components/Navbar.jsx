@@ -6,6 +6,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import LoginIcon from '@mui/icons-material/Login';
 import { useSelector } from 'react-redux';
+import Notification from './Notification';
 
 const Navbar = () => {
     const theme = createTheme({
@@ -78,9 +79,9 @@ const Navbar = () => {
                                     'aria-labelledby': 'basic-button',
                                 }}
                             >
-                                <MenuItem>Profile</MenuItem>
-                                <MenuItem>My account</MenuItem>
-                                <MenuItem>Logout</MenuItem>
+                                <MenuItem>Kategori 1</MenuItem>
+                                <MenuItem>Kategori 2</MenuItem>
+                                <MenuItem>Kategori 3</MenuItem>
                             </Menu>
                             <FormControl sx={{ width: { xs: '270px' } }}>
                                 <OutlinedInput
@@ -98,6 +99,7 @@ const Navbar = () => {
                         </Stack>
                         {isLoged ? (
                             <Stack direction='row' spacing={1}>
+                                <Notification />
                                 <Button href='/profile'>
                                     <Avatar>{user?.email[0]}</Avatar>
                                 </Button>

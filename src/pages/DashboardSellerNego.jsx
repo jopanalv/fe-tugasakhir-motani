@@ -8,9 +8,11 @@ import Footer from '../components/Footer';
 import BotNavbar from '../components/BotNavbar';
 import ProfileCard from '../components/ProfileCard';
 import MenuSidebar from '../components/MenuSidebar';
+import NotFound from '../assets/notfound.png';
 import MenuSidebarMobile from '../components/MenuSidebarMobile';
+import NegoCard from '../components/NegoCard';
 
-const DashboardSeller = () => {
+const DashboardSellerNego = () => {
     const [value, setValue] = useState('1');
 
     const handleChange = (event, newValue) => {
@@ -26,23 +28,10 @@ const DashboardSeller = () => {
                     <MenuSidebar />
                     <MenuSidebarMobile />
                     <Stack>
-                        <Box mb={3} height={135} sx={{ border: 2, borderColor: grey[300], borderStyle: 'dashed', borderRadius: 2 }}>
-                            <Button fullWidth sx={{ color: grey[500], p: 2 }}>
-                                <Stack display='flex'>
-                                    <AddPhotoAlternate sx={{ width: 80, height: 80, m: 'auto' }} />
-                                    Tambah Produk
-                                </Stack>
-                            </Button>
-                        </Box>
-                        <Box display='grid' gap={2} sx={{ gridTemplateColumns: { xs: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' } }}>
-                            <CardList />
-                            <CardList />
-                            <CardList />
-                            <CardList />
-                            <CardList />
-                            <CardList />
-                            <CardList />
-                            <CardList />
+                        <Box display='grid' gap={2} sx={{ gridTemplateColumns: { xs: 'repeat(2, 1fr)', md: 'repeat(2, 1fr)' } }}>
+                            <NegoCard />
+                            <NegoCard />
+                            <NegoCard />
                         </Box>
                     </Stack>
                 </Grid>
@@ -53,4 +42,4 @@ const DashboardSeller = () => {
     )
 }
 
-export default DashboardSeller;
+export default DashboardSellerNego;

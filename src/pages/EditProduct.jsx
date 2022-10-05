@@ -6,19 +6,23 @@ import { grey, lightGreen, red } from '@mui/material/colors';
 import Footer from '../components/Footer';
 import BotNavbar from '../components/BotNavbar';
 
-const AddProduct = () => {
+const EditProduct = () => {
     return (
         <>
             <StaticNavbar title='Edit Produk' />
             <Container fixed sx={{ mt: 13 }}>
-                <Box mb={3} height={135} sx={{ border: 2, borderColor: grey[300], borderStyle: 'dashed', borderRadius: 2 }}>
-                    <Button fullWidth sx={{ color: grey[500], p: 2 }}>
-                        <Stack display='flex'>
-                            <AddPhotoAlternate sx={{ width: 80, height: 80, m: 'auto' }} />
-                            Tambah Produk
-                        </Stack>
-                    </Button>
-                </Box>
+                <Grid container direction='row' justifyContent='center'>
+                    <Box />
+                    <Box mb={3} width={200} height={135} sx={{ border: 2, borderColor: grey[300], borderStyle: 'dashed', borderRadius: 2 }}>
+                        <Button fullWidth sx={{ color: grey[500], p: 2 }}>
+                            <Stack display='flex'>
+                                <AddPhotoAlternate sx={{ width: 80, height: 80, m: 'auto' }} />
+                                Tambah Gambar
+                            </Stack>
+                        </Button>
+                    </Box>
+                    <Box />
+                </Grid>
                 <TextField id='outlined-basic' label='Nama Produk' type='text' margin='normal' fullWidth />
                 <FormControl fullWidth sx={{
                     mt: 1
@@ -55,4 +59,4 @@ const AddProduct = () => {
     )
 }
 
-export default AddProduct;
+export default EditProduct;

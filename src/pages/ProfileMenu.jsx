@@ -16,15 +16,15 @@ const ProfileMenu = () => {
                     <Typography variant='h6'>Nama/email</Typography>
                 </Stack>
                 <Stack mt={5} spacing={3} sx={{mb: 13.5, mx: {xs: 0, md: 30}}}>
-                    <Button sx={{ p: 2, borderBottom: 3, borderBottomColor: lightGreen[500], borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }} fullWidth>
+                    <Button href='/profile/edit' sx={{ p: 2, borderBottom: 3, borderBottomColor: lightGreen[500], borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }} fullWidth>
                         <Grid container direction='row' justifyContent='space-between' alignItems='center'>
                             <Typography color={'#000'}>Ubah Profil</Typography>
                             <Settings sx={{ color: lightGreen[500] }} />
                         </Grid>
                     </Button>
-                    <Button sx={{ p: 2, borderBottom: 3, borderBottomColor: lightGreen[500], borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }} fullWidth>
+                    <Button href='/dashboard' sx={{ p: 2, borderBottom: 3, borderBottomColor: lightGreen[500], borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }} fullWidth>
                         <Grid container direction='row' justifyContent='space-between' alignItems='center'>
-                            <Typography color={'#000'}>Pesanan Saya</Typography>
+                            <Typography color={'#000'}>Dashboard Saya</Typography>
                             <ShoppingCart sx={{ color: lightGreen[500] }} />
                         </Grid>
                     </Button>
