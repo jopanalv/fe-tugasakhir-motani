@@ -1,9 +1,8 @@
-import { AppBar, Box, Container, Toolbar, Grid, Stack, Typography, Button, Avatar } from '@mui/material';
+import { AppBar, Box, Container, Toolbar, Grid, Stack, Typography, Button, Avatar, IconButton } from '@mui/material';
 import React, { useState } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { lightGreen, grey } from '@mui/material/colors';
-import LoginIcon from '@mui/icons-material/Login';
-import { useSelector } from 'react-redux';
+import Notification from './Notification';
 
 const StaticNavbar = ({ title }) => {
     const theme = createTheme({
@@ -44,6 +43,7 @@ const StaticNavbar = ({ title }) => {
                             {title}
                         </Typography>
                         <Stack direction='row' spacing={1}>
+                            <Notification />
                             <Button href='/profile' sx={{ display: { xs: 'none', md: 'block' } }}>
                                 <Avatar>{null}</Avatar>
                             </Button>

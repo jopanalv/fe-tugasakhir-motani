@@ -6,7 +6,7 @@ import { green } from '@mui/material/colors';
 const CardList = () => {
     return (
         <Card sx={{maxWidth: 200, mb: {xs: 3}}}>
-            <CardActionArea>
+            <CardActionArea href='/detail'>
                 <CardMedia component='img' height='133' width='200' image={Traktor} alt='traktor'/>
                 <CardContent>
                     <Typography variant='h6'>

@@ -1,15 +1,15 @@
-import { Container, TextField, Box, Button, Stack, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { Container, TextField, Box, Button, Stack, FormControl, InputLabel, Select, MenuItem, Grid } from '@mui/material';
 import { AddPhotoAlternate } from '@mui/icons-material';
 import React from 'react';
 import StaticNavbar from '../components/StaticNavbar';
-import { grey, lightGreen } from '@mui/material/colors';
+import { grey, lightGreen, red } from '@mui/material/colors';
 import Footer from '../components/Footer';
 import BotNavbar from '../components/BotNavbar';
 
-const AddProduct = () => {
+const EditProfile = () => {
     return (
         <>
-            <StaticNavbar title='Tambah Produk' />
+            <StaticNavbar title='Edit Profil' />
             <Container fixed sx={{ mt: 13 }}>
                 <Grid container direction='row' justifyContent='center'>
                     <Box />
@@ -17,33 +17,32 @@ const AddProduct = () => {
                         <Button fullWidth sx={{ color: grey[500], p: 2 }}>
                             <Stack display='flex'>
                                 <AddPhotoAlternate sx={{ width: 80, height: 80, m: 'auto' }} />
-                                Tambah Gambar
+                                Tambah Photo
                             </Stack>
                         </Button>
                     </Box>
                     <Box />
                 </Grid>
-                <TextField id='outlined-basic' label='Nama Produk' type='text' margin='normal' fullWidth />
+                <TextField id='outlined-basic' label='Nama' type='text' margin='normal' fullWidth />
                 <FormControl fullWidth sx={{
                     mt: 1
                 }}>
-                    <InputLabel id='demo-simple-select-label'>Kategori</InputLabel>
+                    <InputLabel id='demo-simple-select-label'>Desa</InputLabel>
                     <Select labelId='demo-simple-select-label' id='demo-simple-select' label='Role'>
-                        <MenuItem value='seller'>Kategori 1</MenuItem>
-                        <MenuItem value='buyer'>Kategori 2</MenuItem>
-                        <MenuItem value='buyer'>Kategori 3</MenuItem>
+                        <MenuItem value='seller'>Desa 1</MenuItem>
+                        <MenuItem value='buyer'>Desa 2</MenuItem>
+                        <MenuItem value='buyer'>Desa 3</MenuItem>
                     </Select>
                 </FormControl>
-                <TextField id='outlined-basic' label='Harga' type='text' margin='normal' fullWidth />
-                <TextField id='outlined-basic' label='Stok' type='text' margin='normal' fullWidth />
-                <TextField id='outlined-basic' multiline rows={5} label='Deskripsi' type='text' margin='normal' fullWidth />
+                <TextField id='outlined-basic' multiline rows={4} label='Alamat' type='text' margin='normal' fullWidth />
+                <TextField id='outlined-basic' label='Nomer HP' type='text' margin='normal' fullWidth />
                 <form>
                     <Button type='submit' variant='contained' size='large' sx={{
                         mt: 2,
                         mb: 7,
                         bgcolor: lightGreen[500]
                     }} fullWidth>
-                        Tambah
+                        Simpan
                     </Button>
                 </form>
             </Container>
@@ -53,4 +52,4 @@ const AddProduct = () => {
     )
 }
 
-export default AddProduct;
+export default EditProfile;
