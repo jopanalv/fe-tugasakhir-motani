@@ -24,14 +24,14 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/profile' element={<ProfileMenu />} />
-        <Route path='/detail' element={<ProductDetail />} />
-        <Route path='/category' element={<CategoryDetail />} />
+        <Route path='/detail/:slug' element={<ProductDetail />} />
+        <Route path='/category/:id' element={<CategoryDetail />} />
         <Route path='/dashboard' element={<DashboardSeller />} />
         <Route path='/dashboard/rented' element={<DashboardSellerRented />} />
         <Route path='/dashboard/nego' element={<DashboardSellerNego />} />
         <Route path='/product/add' element={<AddProduct />} />
-        <Route path='/product/edit' element={<EditProduct />} />
-        <Route path='/profile/edit' element={<EditProfile />} />
+        <Route path='/product/edit/:slug' element={<EditProduct />} />
+        <Route path='/profile/edit/:id' element={<EditProfile />} />
         <Route path='/order' element={<MyOrder />} />
       </Routes>
     </BrowserRouter>

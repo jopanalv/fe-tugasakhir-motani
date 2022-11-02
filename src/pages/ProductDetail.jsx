@@ -1,5 +1,5 @@
 import { Avatar, Box, Button, Container, Divider, Grid, Stack, Typography, Fab, Modal, IconButton, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, FormGroup, Checkbox, Card, CardMedia, CardContent, InputLabel, Input, TextField, OutlinedInput, InputAdornment } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { LocalizationProvider, MobileDatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -10,11 +10,23 @@ import Footer from '../components/Footer';
 import BotNavbar from '../components/BotNavbar';
 import { ShoppingCart, Favorite, Close, FilterAlt } from '@mui/icons-material';
 import ProfileCard from '../components/ProfileCard';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProductById } from '../redux/action/productAction';
+import { useParams } from 'react-router-dom';
 
 const ProductDetail = () => {
     const [open, setOpen] = useState(false)
     const [value, setValue] = useState(dayjs())
-    
+
+    const dispatch = useDispatch()
+    const { id } = useParams()
+
+    const { detail } = useSelector(state => state.product)
+
+    useEffect(() => {
+        dispatch(getProductById(id))
+    }, [dispatch])
+
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
 
@@ -29,13 +41,13 @@ const ProductDetail = () => {
                 <Grid container direction='column' alignItems='center'>
                     <Grid container justifyContent='space-evenly'>
                         <Box sx={{ boxShadow: 3, borderRadius: 3, height: { xs: 400, md: 500 }, width: { xs: 1, md: 500 } }}>
-                            <img src={Traktor} />
+                            <img src={detail.image} />
                         </Box>
                         <Stack direction='column' spacing={3} sx={{ mt: { xs: 5, md: 0 } }}>
                             <Box p={3} sx={{ boxShadow: 3, borderRadius: 3, height: { xs: 150, md: 330 }, width: 350 }}>
-                                <Typography variant='h4' sx={{ fontWeight: 'bold' }}>Traktor Lurrr</Typography>
-                                <Typography variant='body1' sx={{ color: grey[600] }}>Kategori</Typography>
-                                <Typography variant='h6'>Rp 2000000 / hari</Typography>
+                                <Typography variant='h4' sx={{ fontWeight: 'bold' }}>{detail.name}</Typography>
+                                <Typography variant='body1' sx={{ color: grey[600] }}>{detail?.Category?.name}</Typography>
+                                <Typography variant='h6'>Rp {detail.price} / hari</Typography>
                                 <Grid mt={2} container justifyContent='space-between' alignItems='center'>
                                     <Box width={200}>
                                         <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -71,7 +83,7 @@ const ProductDetail = () => {
                         <Typography variant='h5'>Deskripsi</Typography>
                         <Divider sx={{ my: 2 }} />
                         <Typography>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras a bibendum tortor, a fermentum magna. Vivamus dignissim varius interdum. Nulla semper ex dolor, non ultrices velit eleifend quis. Praesent sit amet erat nec ex mollis faucibus non et eros. Pellentesque dignissim ornare ligula a porttitor. Curabitur sit amet libero lectus. Nam mattis, felis ut egestas tincidunt, eros ex ultricies elit, in accumsan neque purus quis diam. Sed pellentesque malesuada neque et pharetra. Mauris metus metus, dapibus eu justo eget, fringilla facilisis neque. Ut eget purus porttitor massa fringilla sagittis vel vel risus. Sed in varius nibh. Morbi ultricies, lectus non luctus porttitor, est arcu hendrerit diam, eget molestie quam libero vitae ipsum. Etiam consequat ac ligula nec gravida. Fusce nulla ligula, sollicitudin quis nunc a, ultrices pellentesque ligula. Sed tortor nibh, tristique ac maximus tempor, porttitor et nulla.
+                            {detail.description}
                         </Typography>
                     </Box>
                     <Grid direction='column' sx={{ '& > :not(style)': { m: 1 }, position: 'fixed', bottom: 70, display: { xs: 'block', md: 'none' } }}>

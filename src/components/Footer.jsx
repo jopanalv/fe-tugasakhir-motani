@@ -2,6 +2,7 @@ import { Box, Container, Grid, ThemeProvider, createTheme, Toolbar, Typography, 
 import { lightGreen } from '@mui/material/colors';
 import { Facebook, Instagram, LinkedIn, Twitter } from '@mui/icons-material';
 import React from 'react';
+import Logo from '../assets/logo.png';
 
 const Footer = () => {
     const theme = createTheme({
@@ -17,7 +18,7 @@ const Footer = () => {
             <Container disableGutters={true} sx={{ backgroundColor: 'primary.main', mb: -1, display: { xs: 'none', md: 'flex' } }}>
                 <Grid container direction='row' justifyContent='space-around' alignItems='center'>
                     <Toolbar disableGutters>
-                        <Box sx={{
+                        <Box component='img' src={Logo} alt='logo website' sx={{
                             width: 100,
                             height: 35,
                             backgroundColor: 'white',

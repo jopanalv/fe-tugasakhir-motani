@@ -28,7 +28,7 @@ const DashboardSellerNego = () => {
                     <MenuSidebar />
                     <MenuSidebarMobile />
                     <Stack>
-                        <Box display='grid' gap={2} sx={{ gridTemplateColumns: { xs: 'repeat(2, 1fr)', md: 'repeat(2, 1fr)' } }}>
+                        <Box display='grid' gap={2} alignItems='center' sx={{ gridTemplateColumns: { xs: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' } }}>
                             <NegoCard />
                             <NegoCard />
                             <NegoCard />

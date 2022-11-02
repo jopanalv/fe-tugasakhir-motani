@@ -6,35 +6,41 @@ import CardList from '../components/CardList';
 import BotNavbar from '../components/BotNavbar';
 import { lightGreen } from '@mui/material/colors';
 import { Tune, Close, FilterAlt } from '@mui/icons-material';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 const CategoryDetail = () => {
     const [open, setOpen] = useState(false)
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
 
+    const {id} = useParams()
+
+    const {categories} = useSelector(state => state.category)
+    const {products} = useSelector(state => state.product)
+
+    console.log(products)
+
     return (
         <>
             <Navbar />
-            <Container disableGutters='true' maxWidth='lg' sx={{ mt: 5 }}>
+            <Container disableGutters={true} maxWidth='lg' sx={{ mt: 5 }}>
                 <Box
                     display='flex'
                     height={210}
                     bgcolor={lightGreen[500]}
                 >
                     <Box m='auto'>
-                        <Typography variant='h4' fontWeight='bold' color={'#fff'}>Kategori</Typography>
+                        <Typography variant='h4' fontWeight='bold' color={'#fff'}>{categories[id-1]?.name}</Typography>
                     </Box>
                 </Box>
                 <Grid container justifyContent='space-around' sx={{ mt: 5, mb: { xs: 10, md: 5 } }}>
                     <Box display='grid' gap={2} sx={{ gridTemplateColumns: { xs: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' } }}>
-                        <CardList />
-                        <CardList />
-                        <CardList />
-                        <CardList />
-                        <CardList />
-                        <CardList />
-                        <CardList />
-                        <CardList />
+                        {products?.map((product) => (
+                            product?.CategoryId == id ? (
+                                <CardList key={product.id} product={product} />
+                            ) : null
+                        ))}
                     </Box>
                     <Box width={300} height={300} p={3} sx={{ boxShadow: 3, borderRadius: 3, display: { xs: 'none', md: 'block' } }}>
                         <Typography mb={2} fontWeight='bold' variant='h5'>Filter</Typography>

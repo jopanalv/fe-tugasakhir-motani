@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { lightGreen, grey } from '@mui/material/colors';
 import Notification from './Notification';
+import Logo from '../assets/logo.png';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const StaticNavbar = ({ title }) => {
     const theme = createTheme({
@@ -18,35 +21,35 @@ const StaticNavbar = ({ title }) => {
         },
     });
 
-    // const { user } = useSelector(state => state.auth);
-
+    const {user} = useSelector(state => state.auth);
     return (
         <ThemeProvider theme={theme}>
             <AppBar color='default' position='fixed'>
                 <Container disableGutters={true}>
                     <Grid container direction='row' justifyContent='space-between' alignItems='center'>
                         <Toolbar disableGutters>
-                            <Box sx={{
-                                width: 100,
-                                height: 35,
-                                backgroundColor: 'primary.main',
-                                '&:hover': {
-                                    backgroundColor: 'primary',
-                                    opacity: [0.9, 0.8, 0.7],
-                                },
-                                display: { xs: 'none', md: 'block' }
-                            }} />
+                            <Link to='/' style={{ color: 'inherit', textDecoration: 'none' }}>
+                                <Button>
+                                    <Box component='img' src={Logo} alt='logo website' sx={{
+                                        width: 100,
+                                        height: 35,
+                                        display: { xs: 'none', md: 'block' }
+                                    }} />
+                                </Button>
+                            </Link>
                         </Toolbar>
                         <Typography
                             align='center'
                             variant='h6'>
                             {title}
                         </Typography>
-                        <Stack direction='row' spacing={1}>
+                        <Stack direction='row' spacing={1} sx={{ display: { xs: 'none', md: 'inherit' } }}>
                             <Notification />
-                            <Button href='/profile' sx={{ display: { xs: 'none', md: 'block' } }}>
-                                <Avatar>{null}</Avatar>
-                            </Button>
+                            <Link to='/profile' style={{ color: 'inherit', textDecoration: 'none' }}>
+                                <Button>
+                                    <Avatar>{user?.Profile.name[0]}</Avatar>
+                                </Button>
+                            </Link>
                         </Stack>
                     </Grid>
                 </Container>

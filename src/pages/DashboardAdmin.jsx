@@ -12,7 +12,7 @@ import MenuSidebar from '../components/MenuSidebar';
 import NotFound from '../assets/notfound.png';
 import MenuSidebarMobile from '../components/MenuSidebarMobile';
 
-const DashboardSellerRented = () => {
+const DashboardAdmin = () => {
     const columns = [
         { field: 'no', headerName: 'No', width: 50 },
         { field: 'produk', headerName: 'Produk', width: 140 },
@@ -76,4 +76,4 @@ const DashboardSellerRented = () => {
     )
 }
 
-export default DashboardSellerRented;
+export default DashboardAdmin;

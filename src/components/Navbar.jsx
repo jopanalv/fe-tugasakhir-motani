@@ -1,12 +1,14 @@
-import { AppBar, Box, Container, Toolbar, Grid, Stack, FormControl, OutlinedInput, InputAdornment, Button, Menu, MenuItem, Avatar } from '@mui/material';
+import { AppBar, Box, Container, Toolbar, Grid, Stack, InputAdornment, Button, Menu, MenuItem, Avatar, Autocomplete, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { lightGreen, grey } from '@mui/material/colors';
-import SearchIcon from '@mui/icons-material/Search';
+import { Search } from '@mui/icons-material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import LoginIcon from '@mui/icons-material/Login';
 import { useSelector } from 'react-redux';
 import Notification from './Notification';
+import Logo from '../assets/logo.png';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     const theme = createTheme({
@@ -24,6 +26,7 @@ const Navbar = () => {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const { isLoged, user } = useSelector(state => state.auth);
+    const { products } = useSelector(state => state.product);
 
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -39,16 +42,15 @@ const Navbar = () => {
                 <Container disableGutters={true}>
                     <Grid container direction='row' justifyContent='space-between' alignItems='center'>
                         <Toolbar disableGutters>
-                            <Box sx={{
-                                width: 100,
-                                height: 35,
-                                backgroundColor: 'primary.main',
-                                '&:hover': {
-                                    backgroundColor: 'primary',
-                                    opacity: [0.9, 0.8, 0.7],
-                                },
-                                display: { xs: 'none', md: 'block' }
-                            }} />
+                            <Link to='/' style={{ color: 'inherit', textDecoration: 'none' }}>
+                                <Button >
+                                    <Box component='img' src={Logo} alt='logo website' sx={{
+                                        width: { xs: 50, md: 100 },
+                                        height: { xs: 20, md: 35 },
+                                        // display: { xs: 'none', md: 'block' }
+                                    }} />
+                                </Button>
+                            </Link>
                         </Toolbar>
                         <Stack direction='row' spacing={1}>
                             <Button
@@ -83,29 +85,50 @@ const Navbar = () => {
                                 <MenuItem>Kategori 2</MenuItem>
                                 <MenuItem>Kategori 3</MenuItem>
                             </Menu>
-                            <FormControl sx={{ width: { xs: '270px' } }}>
-                                <OutlinedInput
-                                    id='outlined-adornment-password'
-                                    type='text'
-                                    size='small'
-                                    placeholder='Cari disini...'
-                                    endAdornment={<InputAdornment><SearchIcon /></InputAdornment>}
-                                    sx={{
-                                        borderRadius: 4,
-                                        backgroundColor: 'secondary.main',
-                                    }}
-                                />
-                            </FormControl>
+                            <Autocomplete
+                                freeSolo
+                                id="free-solo-2-demo"
+                                disableClearable
+                                options={products?.map((option) => option.name)}
+                                renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        placeholder='Cari disini...'
+                                        variant='standard'
+                                        InputProps={{
+                                            ...params.InputProps,
+                                            type: 'search',
+                                            disableUnderline: true,
+                                            endAdornment: (
+                                                <InputAdornment>
+                                                    <Search />
+                                                </InputAdornment>
+                                            )
+                                        }}
+                                        sx={{
+                                            width: { xs: 170, md: 300 },
+                                            borderRadius: 4,
+                                            border: 1,
+                                            borderColor: grey[400],
+                                            backgroundColor: 'secondary.main',
+                                            p: 1,
+                                            px: 3
+                                        }}
+                                    />
+                                )}
+                            />
                         </Stack>
                         {isLoged ? (
-                            <Stack direction='row' spacing={1}>
+                            <Stack direction='row' spacing={1} sx={{ display: { xs: 'none', md: 'inherit' } }}>
                                 <Notification />
-                                <Button href='/profile'>
-                                    <Avatar>{user?.email[0]}</Avatar>
-                                </Button>
+                                <Link to='/profile' style={{ color: 'inherit', textDecoration: 'none' }}>
+                                    <Button>
+                                        <Avatar>{user?.Profile.name[0]}</Avatar>
+                                    </Button>
+                                </Link>
                             </Stack>
                         ) : (
-                            <Button variant='contained' href='/login' startIcon={<LoginIcon />} sx={{ color: '#fff', display: { xs: 'none', md: 'inherit' } }}>Login</Button>
+                            <Button href='/login' variant='contained' startIcon={<LoginIcon />} sx={{ color: '#fff', display: { xs: 'none', md: 'inherit' } }}>Login</Button>
                         )}
                     </Grid>
                 </Container>
