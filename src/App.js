@@ -1,26 +1,41 @@
 import React from 'react';
-import logo from './logo.svg';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import ProfileMenu from './pages/ProfileMenu';
 import './App.css';
+import ProductDetail from './pages/ProductDetail';
+import CategoryDetail from './pages/CategoryDetail';
+import DashboardSeller from './pages/DashboardSeller';
+import AddProduct from './pages/AddProduct';
+import EditProduct from './pages/EditProduct';
+import EditProfile from './pages/EditProfile';
+import DashboardSellerRented from './pages/DashboardSellerRented';
+import DashboardSellerNego from './pages/DashboardSellerNego';
+import MyOrder from './pages/MyOrder';
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
+        <Route path='/profile' element={<ProfileMenu />} />
+        <Route path='/detail/:slug' element={<ProductDetail />} />
+        <Route path='/category/:id' element={<CategoryDetail />} />
+        <Route path='/dashboard' element={<DashboardSeller />} />
+        <Route path='/dashboard/rented' element={<DashboardSellerRented />} />
+        <Route path='/dashboard/nego' element={<DashboardSellerNego />} />
+        <Route path='/product/add' element={<AddProduct />} />
+        <Route path='/product/edit/:slug' element={<EditProduct />} />
+        <Route path='/profile/edit/:id' element={<EditProfile />} />
+        <Route path='/order' element={<MyOrder />} />
+      </Routes>
+    </BrowserRouter>
+  )
 }
 
 export default App;
