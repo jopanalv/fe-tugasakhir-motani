@@ -12,27 +12,38 @@ import { ShoppingCart, Favorite, Close, FilterAlt } from '@mui/icons-material';
 import ProfileCard from '../components/ProfileCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProductById } from '../redux/action/productAction';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { createTransaction } from '../redux/action/transactionAction';
 
 const ProductDetail = () => {
+    const { detail } = useSelector(state => state.product)
+    const { isLoged } = useSelector(state => state.auth)
+
     const [open, setOpen] = useState(false)
-    const [value, setValue] = useState(dayjs())
+    const [offer, setOffer] = useState(0)
+    const [start, setStart] = useState(dayjs())
+    const [duration, setDuration] = useState(0)
 
     const dispatch = useDispatch()
-    const { id } = useParams()
-
-    const { detail } = useSelector(state => state.product)
+    const { slug } = useParams()
 
     useEffect(() => {
-        dispatch(getProductById(id))
-    }, [dispatch])
+        dispatch(getProductById(slug))
+    }, [])
 
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
 
     const handleChange = (newValue) => {
-        setValue(newValue);
-    };
+        setStart(newValue);
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+
+        dispatch(createTransaction({ offer, start, duration, slug }))
+        handleClose()
+    }
 
     return (
         <>
@@ -41,49 +52,65 @@ const ProductDetail = () => {
                 <Grid container direction='column' alignItems='center'>
                     <Grid container justifyContent='space-evenly'>
                         <Box sx={{ boxShadow: 3, borderRadius: 3, height: { xs: 400, md: 500 }, width: { xs: 1, md: 500 } }}>
-                            <img src={detail.image} />
+                            <img src={detail?.image} />
                         </Box>
                         <Stack direction='column' spacing={3} sx={{ mt: { xs: 5, md: 0 } }}>
                             <Box p={3} sx={{ boxShadow: 3, borderRadius: 3, height: { xs: 150, md: 330 }, width: 350 }}>
-                                <Typography variant='h4' sx={{ fontWeight: 'bold' }}>{detail.name}</Typography>
+                                <Typography variant='h4' sx={{ fontWeight: 'bold' }}>{detail?.name}</Typography>
                                 <Typography variant='body1' sx={{ color: grey[600] }}>{detail?.Category?.name}</Typography>
-                                <Typography variant='h6'>Rp {detail.price} / hari</Typography>
+                                <Typography variant='h6'>Rp {detail?.price} / hari</Typography>
                                 <Grid mt={2} container justifyContent='space-between' alignItems='center'>
                                     <Box width={200}>
                                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                                             <Typography variant='body2' fontWeight='bold'>Mulai sewa</Typography>
-                                            <MobileDatePicker inputFormat='DD/MM/YYYY' value={value}
+                                            <MobileDatePicker inputFormat='DD/MM/YYYY' value={start}
                                                 onChange={handleChange} renderInput={(params) => <TextField {...params} />} />
                                         </LocalizationProvider>
                                     </Box>
                                     <Box width={100}>
                                         <Typography variant='body2' fontWeight='bold'>Durasi</Typography>
-                                        <TextField InputProps={{
+                                        <TextField value={duration} onChange={e => setDuration(e.target.value)} InputProps={{
                                             endAdornment: <InputAdornment>hari</InputAdornment>
                                         }} />
                                     </Box>
                                 </Grid>
-                                <Button onClick={handleOpen} variant='contained' size='large' fullWidth sx={{
-                                    backgroundColor: lightGreen[500], '&:hover': {
-                                        backgroundColor: lightGreen[500],
-                                        opacity: [0.7, 0.8, 0.9],
-                                    }, mt: 3, display: { xs: 'none', md: 'block' }
-                                }}>Sewa dan Nego Sekarang</Button>
-                                <Button variant='contained' size='large' fullWidth sx={{
-                                    backgroundColor: lightGreen[500], '&:hover': {
-                                        backgroundColor: lightGreen[500],
-                                        opacity: [0.7, 0.8, 0.9],
-                                    }, mt: 2, display: { xs: 'none', md: 'block' }
-                                }}>Masukkan ke wishlist</Button>
+                                {!isLoged ? (
+                                    <Box>
+                                        <Link to={'/login'} style={{ color: 'inherit', textDecoration: 'none' }}>
+                                            <Button onClick={handleOpen} variant='contained' size='large' fullWidth sx={{
+                                                backgroundColor: lightGreen[500], '&:hover': {
+                                                    backgroundColor: lightGreen[500],
+                                                    opacity: [0.7, 0.8, 0.9],
+                                                }, mt: 3, display: { xs: 'none', md: 'block' }
+                                            }}>Login dulu yaa!</Button>
+                                        </Link>
+                                    </Box>
+                                ) : (
+                                    <Box>
+                                        <Button onClick={handleOpen} variant='contained' size='large' fullWidth sx={{
+                                            backgroundColor: lightGreen[500], '&:hover': {
+                                                backgroundColor: lightGreen[500],
+                                                opacity: [0.7, 0.8, 0.9],
+                                            }, mt: 3, display: { xs: 'none', md: 'block' }
+                                        }}>Sewa dan Nego Sekarang</Button>
+                                        <Button variant='outlined' size='large' fullWidth sx={{
+                                            mt: 2,
+                                            color: lightGreen[500],
+                                            borderColor: lightGreen[500],
+                                            display: { xs: 'none', md: 'block' }
+                                        }}>Masukkan ke wishlist</Button>
+                                    </Box>
+                                )}
+
                             </Box>
-                            <ProfileCard />
+                            <ProfileCard profile={detail} />
                         </Stack>
                     </Grid>
                     <Box p={3} sx={{ boxShadow: 3, width: { xs: 350, md: 940 }, mt: 6, borderRadius: 3 }}>
                         <Typography variant='h5'>Deskripsi</Typography>
                         <Divider sx={{ my: 2 }} />
                         <Typography>
-                            {detail.description}
+                            {detail?.description}
                         </Typography>
                     </Box>
                     <Grid direction='column' sx={{ '& > :not(style)': { m: 1 }, position: 'fixed', bottom: 70, display: { xs: 'block', md: 'none' } }}>
@@ -116,17 +143,19 @@ const ProductDetail = () => {
                         </Card>
                         <Box mt={3}>
                             <Typography variant='body2' fontWeight='bold'>Harga Tawar</Typography>
-                            <TextField value=' 200000' InputProps={{
+                            <TextField value={offer} onChange={e => setOffer(e.target.value)} InputProps={{
                                 startAdornment: <InputAdornment>Rp </InputAdornment>,
                                 endAdornment: <InputAdornment>/ hari</InputAdornment>
                             }} fullWidth />
                         </Box>
-                        <Button variant='contained' size='large' fullWidth sx={{
-                            backgroundColor: lightGreen[500], '&:hover': {
-                                backgroundColor: lightGreen[500],
-                                opacity: [0.7, 0.8, 0.9],
-                            }, mt: 3
-                        }}>Sewa Sekarang</Button>
+                        <form onSubmit={handleSubmit}>
+                            <Button variant='contained' type='submit' size='large' fullWidth sx={{
+                                backgroundColor: lightGreen[500], '&:hover': {
+                                    backgroundColor: lightGreen[500],
+                                    opacity: [0.7, 0.8, 0.9],
+                                }, mt: 3
+                            }}>Sewa Sekarang</Button>
+                        </form>
                     </Box>
                 </Box>
             </Modal>

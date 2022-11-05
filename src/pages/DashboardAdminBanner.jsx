@@ -11,9 +11,8 @@ import ProfileCard from '../components/ProfileCard';
 import MenuSidebar from '../components/MenuSidebar';
 import NotFound from '../assets/notfound.png';
 import MenuSidebarMobile from '../components/MenuSidebarMobile';
-import { useSelector } from 'react-redux';
 
-const DashboardSellerRented = () => {
+const DashboardAdminBanner = () => {
     const columns = [
         { field: 'no', headerName: 'No', width: 50 },
         { field: 'produk', headerName: 'Produk', width: 140 },
@@ -24,50 +23,30 @@ const DashboardSellerRented = () => {
         { field: 'status', headerName: 'Status', width: 80 },
     ];
 
-    const { transactions } = useSelector(state => state.transaction)
+    const response = {
+        status: 200,
+        products: [
+            {
+                id: 1,
+                name: 'traktor'
+            },
+            {
+                id: 2,
+                name: 'traktor 2'
+            }
+        ]
+    }
 
-    // const response = {
-    //     status: 200,
-    //     products: [
-    //         {
-    //             id: 1,
-    //             name: 'traktor'
-    //         },
-    //         {
-    //             id: 2,
-    //             name: 'traktor 2'
-    //         }
-    //     ]
-    // }
+    const products = response.products
 
-    // const products = response.products
-
-    // const rows = transactions.map((trans, index) => {
-    //     return {
-    //         id: trans.id,
-    //         no: index + 1,
-    //         produk: trans.Product.name,
-    //         penyewa: trans.Profile.name,
-    //         mulaisewa: trans.start_rent,
-    //         durasi: trans.duration,
-    //         harga: trans.offer_price,
-    //         status: trans.status
-    //     }
-    // })
-
-    const rows = transactions.filter((trans) => trans.status == 'completed').map((trans, index) => {
+    const rows =  products.map((p, index) => {
         return {
-            id: trans.id,
-            no: index + 1,
-            produk: trans.Product.name,
-            penyewa: trans.Profile.name,
-            mulaisewa: trans.start_rent,
-            durasi: trans.duration,
-            harga: trans.offer_price,
-            status: trans.status
+            id: p.id,
+            no: index+1,
+            produk: p.name
         }
     })
-
+    
     // [
     //     {id: 1, produk: 'produk 1'}
     // ];
@@ -97,4 +76,4 @@ const DashboardSellerRented = () => {
     )
 }
 
-export default DashboardSellerRented;
+export default DashboardAdminBanner;

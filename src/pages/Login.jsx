@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Typography, IconButton, TextField, Button, Link, Stack, Box } from '@mui/material';
+import { Grid, Typography, IconButton, TextField, Button, Stack, Box } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { lightGreen } from '@mui/material/colors';
 import { ChevronLeft } from '@mui/icons-material';
 import AuthImg from '../assets/peasent.svg';
 import { LoginUser } from '../redux/action/authAction';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Login = () => {
     const theme = createTheme({
@@ -48,9 +48,11 @@ const Login = () => {
                 </Box>
                 <Stack direction='column' sx={{ mt: { xs: 15, md: 0 } }}>
                     <Stack direction='row'>
-                        <IconButton href='/' aria-label='delete' size='large' sx={{ display: { xs: 'block', md: 'none' } }}>
-                            <ChevronLeft fontSize='large' />
-                        </IconButton>
+                        <Link to={'/'} style={{ color: 'inherit', textDecoration: 'none' }}>
+                            <IconButton aria-label='delete' size='large' sx={{ display: { xs: 'block', md: 'block' } }}>
+                                <ChevronLeft fontSize='large' />
+                            </IconButton>
+                        </Link>
                         <Typography variant='h3' color='primary' sx={{
                             fontWeight: 'bold',
                         }}>
@@ -69,7 +71,7 @@ const Login = () => {
                     </form>
                     <Typography variant='body2' mt={2} align='center'>
                         Belum punya akun?
-                        <Link href='/register' ml={1} variant='body2' underline='none'>
+                        <Link to='/register'>
                             Daftar
                         </Link>
                     </Typography>

@@ -34,8 +34,7 @@ const CardNotif = () => {
           </Button>
           <Divider />
         </>
-      )
-      }
+      )}
     </>
   )
 }

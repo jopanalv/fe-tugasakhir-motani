@@ -13,7 +13,11 @@ import EditProduct from './pages/EditProduct';
 import EditProfile from './pages/EditProfile';
 import DashboardSellerRented from './pages/DashboardSellerRented';
 import DashboardSellerNego from './pages/DashboardSellerNego';
+import DashboardAdmin from './pages/DashboardAdmin';
+import DashboardAdminCategory from './pages/DashboardAdminCategory';
+import DashboardAdminBanner from './pages/DashboardAdminBanner';
 import MyOrder from './pages/MyOrder';
+import DetailTransaction from './pages/DetailTransaction';
 
 function App() {
 
@@ -29,10 +33,14 @@ function App() {
         <Route path='/dashboard' element={<DashboardSeller />} />
         <Route path='/dashboard/rented' element={<DashboardSellerRented />} />
         <Route path='/dashboard/nego' element={<DashboardSellerNego />} />
+        <Route path='/admin' element={<DashboardAdmin />} />
+        <Route path='/admin/category' element={<DashboardAdminCategory />} />
+        <Route path='/admin/banner' element={<DashboardAdminBanner />} />
         <Route path='/product/add' element={<AddProduct />} />
         <Route path='/product/edit/:slug' element={<EditProduct />} />
         <Route path='/profile/edit/:id' element={<EditProfile />} />
         <Route path='/order' element={<MyOrder />} />
+        <Route path='/transaction/detail' element={<DetailTransaction />} />
       </Routes>
     </BrowserRouter>
   )

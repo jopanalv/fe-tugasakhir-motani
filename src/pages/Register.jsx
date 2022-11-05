@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Box, IconButton, Typography, Link, TextField, Button, Select, MenuItem, FormControl, InputLabel, Stack } from '@mui/material';
+import { Grid, Box, IconButton, Typography, TextField, Button, Select, MenuItem, FormControl, InputLabel, Stack } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { lightGreen } from '@mui/material/colors';
 import { ChevronLeft } from '@mui/icons-material';
@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { RegisterUser } from '../redux/action/authAction';
 import AuthImg from '../assets/peasent.svg';
+import { Link } from 'react-router-dom';
 
 const Register = () => {
     const theme = createTheme({
@@ -49,9 +50,11 @@ const Register = () => {
                 </Box>
                 <Stack direction='column' sx={{ mt: { xs: 15, md: 0 } }}>
                     <Stack direction='row'>
-                        <IconButton href='/' aria-label='delete' size='large' sx={{ display: { xs: 'block', md: 'none' } }}>
-                            <ChevronLeft fontSize='large' />
-                        </IconButton>
+                        <Link to={'/'} style={{ color: 'inherit', textDecoration: 'none' }}>
+                            <IconButton aria-label='delete' size='large' sx={{ display: { xs: 'block', md: 'block' } }}>
+                                <ChevronLeft fontSize='large' />
+                            </IconButton>
+                        </Link>
                         <Typography variant='h3' color='primary' sx={{
                             fontWeight: 'bold',
                         }}>

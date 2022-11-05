@@ -5,16 +5,19 @@ import { Settings, ShoppingCart, Logout } from '@mui/icons-material';
 import { lightGreen, grey } from '@mui/material/colors';
 import BotNavbar from '../components/BotNavbar';
 import Footer from '../components/Footer';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { LogoutUser } from '../redux/action/authAction';
 
 const ProfileMenu = () => {
-    const { user } = useSelector((state) => state.auth);
+    const { user } = useSelector((state) => state.auth)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const handleLogout = () => {
-        dispatch(LogoutUser());
+        dispatch(LogoutUser())
+
+        navigate('/')
     } 
     return (
         <>

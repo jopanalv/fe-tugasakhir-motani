@@ -6,7 +6,7 @@ import { grey, lightGreen } from '@mui/material/colors';
 import Footer from '../components/Footer';
 import BotNavbar from '../components/BotNavbar';
 import { useDropzone } from 'react-dropzone';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addProduct } from '../redux/action/productAction';
 
 const AddProduct = () => {
@@ -18,6 +18,8 @@ const AddProduct = () => {
     const [price, setPrice] = useState(0);
     const [stock, setStock] = useState(0);
     const [category, setCategory] = useState(0);
+
+    const {categories} = useSelector((state) => state.category);
 
     const onDrop = useCallback((acceptedFiles) => {
         setImage(
