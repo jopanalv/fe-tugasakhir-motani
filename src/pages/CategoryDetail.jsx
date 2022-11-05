@@ -19,8 +19,6 @@ const CategoryDetail = () => {
     const {categories} = useSelector(state => state.category)
     const {products} = useSelector(state => state.product)
 
-    console.log(products)
-
     return (
         <>
             <Navbar />

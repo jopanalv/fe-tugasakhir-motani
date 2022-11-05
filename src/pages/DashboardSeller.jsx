@@ -10,7 +10,9 @@ import ProfileCard from '../components/ProfileCard';
 import MenuSidebar from '../components/MenuSidebar';
 import MenuSidebarMobile from '../components/MenuSidebarMobile';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getAllTransaction } from '../redux/action/transactionAction';
 
 const DashboardSeller = () => {
     const [value, setValue] = useState('1');
@@ -19,9 +21,15 @@ const DashboardSeller = () => {
         setValue(newValue);
     };
 
+    const dispatch = useDispatch();
+
     const {products} = useSelector((state) => state.product);
     const {user} = useSelector((state) => state.auth);
-    console.log(user)
+
+    useEffect(() => {
+        dispatch(getAllTransaction())
+    }, []);
+    // console.log(user)
     return (
         <>
             <Navbar />

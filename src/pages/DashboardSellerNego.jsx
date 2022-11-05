@@ -1,8 +1,9 @@
-import { Container, Typography, Box, Stack, Grid, Avatar, Button, Divider } from '@mui/material';
+import { Container, Typography, Box, Stack, Grid, Avatar, Button, Divider, Tabs, Tab } from '@mui/material';
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
-import { ArrowForwardIos, ViewList, AttachMoney, PendingActions, AddPhotoAlternate } from '@mui/icons-material';
+import { ArrowForwardIos, ViewList, AttachMoney, PendingActions, AddPhotoAlternate, Check } from '@mui/icons-material';
 import { lightGreen, grey } from '@mui/material/colors';
+import PropTypes from 'prop-types';
 import CardList from '../components/CardList';
 import Footer from '../components/Footer';
 import BotNavbar from '../components/BotNavbar';
@@ -11,13 +12,46 @@ import MenuSidebar from '../components/MenuSidebar';
 import NotFound from '../assets/notfound.png';
 import MenuSidebarMobile from '../components/MenuSidebarMobile';
 import NegoCard from '../components/NegoCard';
+import { useDispatch, useSelector } from 'react-redux';
+
+function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+
+    return (
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`simple-tabpanel-${index}`}
+            aria-labelledby={`simple-tab-${index}`}
+            {...other}
+        >
+            {value === index && (
+                <Box sx={{ p: 3 }}>
+                    <Typography>{children}</Typography>
+                </Box>
+            )}
+        </div>
+    );
+}
+
+TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.number.isRequired,
+    value: PropTypes.number.isRequired,
+};
 
 const DashboardSellerNego = () => {
-    const [value, setValue] = useState('1');
+    const [value, setValue] = useState(0);
+
+    const { transactions } = useSelector((state) => state.transaction);
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    const dispatch = useDispatch();
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+
     return (
         <>
             <Navbar />
@@ -27,12 +61,29 @@ const DashboardSellerNego = () => {
                 <Grid container direction='row' justifyContent='space-between' mt={5}>
                     <MenuSidebar />
                     <MenuSidebarMobile />
-                    <Stack>
-                        <Box display='grid' gap={2} alignItems='center' sx={{ gridTemplateColumns: { xs: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' } }}>
-                            <NegoCard />
-                            <NegoCard />
-                            <NegoCard />
-                        </Box>
+                    <Stack sx={{ width: { xs: '100%', md: 800 } }}>
+                        <Tabs value={value} onChange={handleChange} textColor='primary' indicatorColor='primary' centered>
+                            <Tab icon={<PendingActions />} label="PENDING" />
+                            <Tab icon={<Check />} label="DITERIMA" />
+                        </Tabs>
+                        <TabPanel value={value} index={0}>
+                            <Grid container gap={2} direction='row' alignItems='center' sx={{ justifyContent: { xs: 'center', md: 'flex-start' } }}>
+                                {transactions.map((trans) => (
+                                    trans.status == 'pending' && trans.SellerId == user.id ? (
+                                        <CardList key={trans.Product.id} product={trans.Product} />
+                                    ) : null
+                                ))}
+                            </Grid>
+                        </TabPanel>
+                        <TabPanel value={value} index={1}>
+                            <Grid container gap={2} direction='row' alignItems='center' sx={{ justifyContent: { xs: 'center', md: 'flex-start' } }}>
+                                {transactions.map((trans) => (
+                                    trans.status == 'approved' && trans.SellerId == user.id ? (
+                                        <CardList key={trans.Product.id} product={trans.Product} />
+                                    ) : null
+                                ))}
+                            </Grid>
+                        </TabPanel>
                     </Stack>
                 </Grid>
             </Container>

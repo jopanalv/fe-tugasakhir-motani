@@ -27,6 +27,7 @@ const Navbar = () => {
     const [anchorEl, setAnchorEl] = useState(null);
     const { isLoged, user } = useSelector(state => state.auth);
     const { products } = useSelector(state => state.product);
+    const { categories } = useSelector(state => state.category);
 
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -67,7 +68,8 @@ const Navbar = () => {
                                     borderRadius: 4,
                                     textTransform: 'none',
                                     color: '#000',
-                                    mr: { sx: 1, md: 2 },
+                                    mr: { xs: 1, md: 2 },
+                                    display: { xs: 'none', md: 'inherit' }
                                 }}
                             >
                                 Kategori
@@ -81,9 +83,13 @@ const Navbar = () => {
                                     'aria-labelledby': 'basic-button',
                                 }}
                             >
-                                <MenuItem>Kategori 1</MenuItem>
-                                <MenuItem>Kategori 2</MenuItem>
-                                <MenuItem>Kategori 3</MenuItem>
+                                {categories?.map((category, index) => (
+                                    <MenuItem key={index} onClick={handleClose}>
+                                        <Link to={`/category/${category.id}`} style={{ color: 'inherit', textDecoration: 'none' }}>
+                                            {category.name}
+                                        </Link>
+                                    </MenuItem>
+                                ))}
                             </Menu>
                             <Autocomplete
                                 freeSolo
@@ -119,21 +125,26 @@ const Navbar = () => {
                             />
                         </Stack>
                         {isLoged ? (
-                            <Stack direction='row' spacing={1} sx={{ display: { xs: 'none', md: 'inherit' } }}>
+                            <Stack direction='row' spacing={1}>
                                 <Notification />
                                 <Link to='/profile' style={{ color: 'inherit', textDecoration: 'none' }}>
-                                    <Button>
+                                    <Button sx={{ display: { xs: 'none', md: 'inherit' } }}>
                                         <Avatar>{user?.Profile.name[0]}</Avatar>
                                     </Button>
                                 </Link>
                             </Stack>
                         ) : (
-                            <Button href='/login' variant='contained' startIcon={<LoginIcon />} sx={{ color: '#fff', display: { xs: 'none', md: 'inherit' } }}>Login</Button>
+
+                            <Button href='/login' variant='contained' startIcon={<LoginIcon />} sx={{ color: '#fff', display: { xs: 'none', md: 'inherit' } }}>
+                                <Link to={'/login'} style={{ color: 'inherit', textDecoration: 'none' }}>
+                                    Login
+                                </Link>
+                            </Button>
                         )}
                     </Grid>
                 </Container>
             </AppBar>
-        </ThemeProvider>
+        </ThemeProvider >
     )
 }
 

@@ -5,10 +5,10 @@ import { green } from '@mui/material/colors';
 import { Link } from 'react-router-dom';
 
 const CardList = ({ product }) => {
-    const user = localStorage.getItem('user');
+    const user = JSON.parse(localStorage.getItem('user'));
     return (
         <Card sx={{ maxWidth: 200, mb: { xs: 3 } }}>
-            <Link to={user?.role === 'buyer' ? '/detail/' + product.slug : '/product/edit/' + product.slug} style={{ color: 'inherit', textDecoration: 'none' }}>
+            <Link to={user?.role === 'buyer' || !user ? '/detail/' + product.slug : '/product/edit/' + product.slug} style={{ color: 'inherit', textDecoration: 'none' }}>
                 <CardActionArea>
                     <CardMedia component='img' image={product.image} alt='gambar product' sx={{ width: 200, height: 133 }} />
                     <CardContent sx={{ textDecoration: 'none' }}>

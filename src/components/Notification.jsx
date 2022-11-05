@@ -3,7 +3,6 @@ import { Badge, Box, Divider, Fade, IconButton, Paper, Popper, Typography } from
 import { red } from '@mui/material/colors';
 import React, { useState } from 'react';
 import CardNotif from './CardNotif';
-import CardNotif2 from './CardNotif2';
 
 const Notification = () => {
     const [anchorEl, setAnchorEl] = useState(null);
