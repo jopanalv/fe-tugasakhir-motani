@@ -23,8 +23,8 @@ const DashboardSeller = () => {
 
     const dispatch = useDispatch();
 
-    const {products} = useSelector((state) => state.product);
-    const {user} = useSelector((state) => state.auth);
+    const { products } = useSelector((state) => state.product);
+    const { user } = useSelector((state) => state.auth);
 
     useEffect(() => {
         dispatch(getAllTransaction())
@@ -35,7 +35,7 @@ const DashboardSeller = () => {
             <Navbar />
             <Container fixed sx={{ mt: 15, mb: 10 }}>
                 <Typography variant='h5' fontWeight='bold'>Dashboard Saya</Typography>
-                <ProfileCard />
+                <ProfileCard profile={user} />
                 <Grid container direction='row' justifyContent='space-between' mt={5}>
                     <MenuSidebar />
                     <MenuSidebarMobile />
@@ -50,9 +50,9 @@ const DashboardSeller = () => {
                                 </Button>
                             </Link>
                         </Box>
-                        <Box display='grid' gap={2} sx={{ gridTemplateColumns: { xs: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' } }}>
+                        <Box display='grid' gap={2} sx={{ gridTemplateColumns: { xs: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' } }}>
                             {products.map((product) => (
-                                product.ProfileId == user.id ? (
+                                product.ProfileId === user.id ? (
                                     <CardList key={product.id} product={product} />
                                 ) : null
                             ))}

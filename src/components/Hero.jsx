@@ -1,25 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../../node_modules/slick-carousel/slick/slick.css';
 import '../../node_modules/slick-carousel/slick/slick-theme.css';
-import Banner1 from '../assets/Banner1.png';
-import Banner2 from '../assets/Banner2.png';
-import Banner3 from '../assets/Banner3.png';
 import { Box, Container, Grid } from '@mui/material';
 import { lightGreen, grey } from '@mui/material/colors';
 import Carousel from 'react-material-ui-carousel';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllBanner } from '../redux/action/bannerAction';
 
 const Hero = () => {
-    const items = [
-        {
-            url: Banner1
-        },
-        {
-            url: Banner2
-        },
-        {
-            url: Banner3
-        },
-    ]
+    const { banner } = useSelector(state => state.banner)
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getAllBanner())
+    }, [])
 
     return (
         // <Container maxWidth='true' disableGutters={true}>
@@ -33,9 +28,9 @@ const Hero = () => {
                 ml: -1,
                 display: { xs: 'none', md: 'block' }
             }} />
-            <Carousel navButtonsAlwaysInvisible sx={{ width: 960, height: 280, mt: 1 }}>
+            <Carousel navButtonsAlwaysInvisible sx={{ width: 960, height: { xs: 180, md: 280 }, mt: 1 }}>
                 {
-                    items.map((item, i) => <img src={item.url} />)
+                    banner.map((item, i) => <img src={item.url} />)
                 }
             </Carousel>
             <Box sx={{

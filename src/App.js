@@ -40,7 +40,7 @@ function App() {
         <Route path='/product/edit/:slug' element={<EditProduct />} />
         <Route path='/profile/edit/:id' element={<EditProfile />} />
         <Route path='/order' element={<MyOrder />} />
-        <Route path='/transaction/detail' element={<DetailTransaction />} />
+        <Route path='/transaction/detail/:id' element={<DetailTransaction />} />
       </Routes>
     </BrowserRouter>
   )

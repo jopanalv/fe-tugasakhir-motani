@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteProduct, getProductById, updateProduct } from '../redux/action/productAction';
 import { useParams } from 'react-router-dom';
 import { useDropzone } from 'react-dropzone';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 const EditProduct = () => {
     const dispatch = useDispatch();
@@ -51,7 +53,7 @@ const EditProduct = () => {
     ));
 
     useEffect(() => {
-        dispatch(getProductById(slug));
+        dispatch(getProductById({ slug }));
     }, []);
 
     useEffect(() => {
@@ -118,7 +120,29 @@ const EditProduct = () => {
                 </FormControl>
                 <TextField id='outlined-basic' value={price} onChange={(e) => setPrice(e.target.value)} label='Harga' type='text' margin='normal' fullWidth />
                 <TextField id='outlined-basic' value={stock} onChange={(e) => setStock(e.target.value)} label='Stok' type='text' margin='normal' fullWidth />
-                <TextField id='outlined-basic' value={description} onChange={(e) => setDescription(e.target.value)} multiline rows={5} label='Deskripsi' type='text' margin='normal' fullWidth />
+                <CKEditor
+                    editor={ClassicEditor}
+                    data={description}
+                    config={{
+                        placeholder: 'Deskripsi Produk',
+                        toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'undo', 'redo']
+                    }}
+                    onReady={editor => {
+                        // You can store the "editor" and use when it is needed.
+                        editor.editing.view.change((writer) => {
+                            writer.setStyle(
+                                'height',
+                                '150px',
+                                editor.editing.view.document.getRoot()
+                            );
+                        });
+                    }}
+                    onChange={(event, editor) => {
+                        const data = editor.getData();
+                        setDescription(data)
+                        console.log({ event, editor, data });
+                    }}
+                />
                 <form encType='multipart/form-data' onSubmit={handleSubmit}>
                     <Button type='submit' variant='contained' size='large' sx={{
                         mt: 2,

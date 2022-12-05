@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { BASE_URL } from '../../utils/baseUrl';
 import jwtDecode from 'jwt-decode';
+import toast from 'react-simple-toasts';
 
 export const LoginUser = (data) => {
     return (dispatch) => {
@@ -11,21 +12,26 @@ export const LoginUser = (data) => {
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json',
             },
-            data: data
+            data: data,
         }).then((response) => {
-            localStorage.setItem('accessToken', response.data.accessToken)
-            const token = localStorage.getItem('accessToken')
-            const user = jwtDecode(token)
-            axios({
-                method: 'GET',
-                url: `${BASE_URL}/users/${user.id}`,
-            }).then((response) => {
-                localStorage.setItem('user', JSON.stringify(response.data.data))
-                dispatch({
-                    type: 'LOGIN_USER',
-                })
-            }).catch(error => console.log(error))
-        }).catch(error => console.log(error))
+            if (response.data.statusCode == 200) {
+                localStorage.setItem('accessToken', response.data.accessToken)
+                const token = localStorage.getItem('accessToken')
+                const user = jwtDecode(token)
+                toast(`${response.data.message}`, 3000, 'green')
+                axios({
+                    method: 'GET',
+                    url: `${BASE_URL}/users/${user.id}`,
+                }).then((response) => {
+                    localStorage.setItem('user', JSON.stringify(response.data.data))
+                    dispatch({
+                        type: 'LOGIN_USER',
+                    })
+                }).catch(error => console.log(error))
+            } else {
+                toast(`${response.data.message}`, 3000, 'green')
+            }
+        }).catch(error => toast(`${error.response.data.message}`))
     }
 }
 
@@ -42,8 +48,10 @@ export const RegisterUser = (data) => {
         }).then((response) => {
             dispatch({
                 type: 'REGISTER_USER',
+                payload: response.data.data
             })
-        }).catch(error => console.log(error))
+            toast(`${response.data.message}`, 3000, 'green')
+        }).catch(error => toast(`${error.response.data.message}`))
     }
 }
 
@@ -54,18 +62,6 @@ export const LogoutUser = () => {
         dispatch({
             type: 'LOGOUT_USER'
         })
-    }
-}
-
-export const updateUser = (data, id) => {
-    return (dispatch) => {
-        axios({
-            method: 'PUT',
-            url: `${BASE_URL}/users/${id}`,
-            data: data
-        }).then((response) => {
-            localStorage.removeItem('user')
-            localStorage.setItem('user', JSON.stringify(response.data.data))
-        }).catch(error => console.log(error))
+        toast(`Logout Berhasil!`, 3000, 'green')
     }
 }

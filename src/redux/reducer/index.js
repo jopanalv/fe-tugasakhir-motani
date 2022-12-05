@@ -3,10 +3,14 @@ import authReducer from './authReducer';
 import productReducer from './productReducer';
 import categoryReducer from './categoryReducer';
 import transactionReducer from './transactionReducer';
+import userReducer from './userReducer';
+import bannerReducer from './bannerReducer';
 
 export default combineReducers({
     auth: authReducer,
     product: productReducer,
     category: categoryReducer,
-    transaction: transactionReducer
+    transaction: transactionReducer,
+    user: userReducer,
+    banner: bannerReducer,
 });

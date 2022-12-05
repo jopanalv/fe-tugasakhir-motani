@@ -13,6 +13,10 @@ import NotFound from '../assets/notfound.png';
 import MenuSidebarMobile from '../components/MenuSidebarMobile';
 import NegoCard from '../components/NegoCard';
 import { useDispatch, useSelector } from 'react-redux';
+import CardNego from '../components/CardNego';
+import { useEffect } from 'react';
+import { getTransaction } from '../redux/action/transactionAction';
+import { useParams } from 'react-router-dom';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -44,9 +48,7 @@ const DashboardSellerNego = () => {
     const [value, setValue] = useState(0);
 
     const { transactions } = useSelector((state) => state.transaction);
-    const user = JSON.parse(localStorage.getItem('user'));
-
-    const dispatch = useDispatch();
+    const { user } = useSelector((state) => state.auth);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -57,7 +59,7 @@ const DashboardSellerNego = () => {
             <Navbar />
             <Container fixed sx={{ mt: 15, mb: 10 }}>
                 <Typography variant='h5' fontWeight='bold'>Dashboard Saya</Typography>
-                <ProfileCard />
+                <ProfileCard profile={user} />
                 <Grid container direction='row' justifyContent='space-between' mt={5}>
                     <MenuSidebar />
                     <MenuSidebarMobile />
@@ -70,7 +72,7 @@ const DashboardSellerNego = () => {
                             <Grid container gap={2} direction='row' alignItems='center' sx={{ justifyContent: { xs: 'center', md: 'flex-start' } }}>
                                 {transactions.map((trans) => (
                                     trans.status == 'pending' && trans.SellerId == user.id ? (
-                                        <CardList key={trans.Product.id} product={trans.Product} />
+                                        <CardNego key={trans.Product.id} product={trans} />
                                     ) : null
                                 ))}
                             </Grid>
@@ -79,7 +81,7 @@ const DashboardSellerNego = () => {
                             <Grid container gap={2} direction='row' alignItems='center' sx={{ justifyContent: { xs: 'center', md: 'flex-start' } }}>
                                 {transactions.map((trans) => (
                                     trans.status == 'approved' && trans.SellerId == user.id ? (
-                                        <CardList key={trans.Product.id} product={trans.Product} />
+                                        <CardNego key={trans.Product.id} product={trans} />
                                     ) : null
                                 ))}
                             </Grid>

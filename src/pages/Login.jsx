@@ -7,6 +7,7 @@ import AuthImg from '../assets/peasent.svg';
 import { LoginUser } from '../redux/action/authAction';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Login = () => {
     const theme = createTheme({
@@ -30,10 +31,6 @@ const Login = () => {
     const handleLogin = (e) => {
         e.preventDefault()
         dispatch(LoginUser(user))
-        setUser({
-            email: '',
-            password: ''
-        })
     }
 
     useEffect(() => {
