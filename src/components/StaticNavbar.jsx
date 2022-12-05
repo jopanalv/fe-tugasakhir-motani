@@ -21,7 +21,7 @@ const StaticNavbar = ({ title }) => {
         },
     });
 
-    const {user} = useSelector(state => state.auth);
+    const { user } = useSelector(state => state.auth);
     return (
         <ThemeProvider theme={theme}>
             <AppBar color='default' position='fixed'>
@@ -43,10 +43,10 @@ const StaticNavbar = ({ title }) => {
                             variant='h6'>
                             {title}
                         </Typography>
-                        <Stack direction='row' spacing={1} sx={{ display: { xs: 'none', md: 'inherit' } }}>
+                        <Stack direction='row' spacing={1}>
                             <Notification />
                             <Link to='/profile' style={{ color: 'inherit', textDecoration: 'none' }}>
-                                <Button>
+                                <Button sx={{ display: { xs: 'none', md: 'inherit' } }}>
                                     <Avatar>{user?.Profile.name[0]}</Avatar>
                                 </Button>
                             </Link>

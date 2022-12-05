@@ -26,12 +26,17 @@ const productReducer = (state = initialState, action) => {
             return {
                 ...state,
                 products: state.products.map((product) => {
-                    if (product.id === action.payload.id) {
+                    if (product.slug === action.payload.slug) {
                         return action.payload
                     } else {
                         return product
                     }
                 })
+            }
+        case 'DELETE_PRODUCT':
+            return {
+                ...state,
+                products: state.products.filter((product) => product.slug !== action.payload)
             }
         default:
             return state

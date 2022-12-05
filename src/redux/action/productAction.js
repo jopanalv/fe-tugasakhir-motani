@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { BASE_URL } from '../../utils/baseUrl';
 import jwtDecode from 'jwt-decode';
+import toast from 'react-simple-toasts';
 
 export const addProduct = (data) => {
     const token = localStorage.getItem("accessToken");
@@ -41,13 +42,13 @@ export const getProducts = () => {
     }
 }
 
-export const getProductById = (slug) => {
+export const getProductById = ({ slug }) => {
     return (dispatch) => {
         axios({
             method: 'GET',
             url: `${BASE_URL}/products/${slug}`
         }).then((response) => {
-            // console.log(response.data.data)
+            console.log(response.data.data)
             dispatch({
                 type: 'GET_PRODUCT_BY_ID',
                 payload: response.data.data
@@ -67,22 +68,30 @@ export const updateProduct = (data, slug) => {
             },
             data: data
         }).then((response) => {
-            console.log(response.data)
+            dispatch({
+                type: 'UPDATE_PRODUCT',
+                payload: response.data.data
+            })
+            toast(`${response.data.message}`, 2000)
         }).catch(error => console.log(error))
     }
 }
 
-export const deleteProduct = (id) => {
+export const deleteProduct = (slug) => {
     const token = localStorage.getItem("accessToken");
     return (dispatch) => {
         axios({
             method: 'DELETE',
-            url: `${BASE_URL}/products/${id}`,
+            url: `${BASE_URL}/products/${slug}`,
             headers: {
                 Authorization: `Bearer ${token}`,
             },
         }).then((response) => {
-            console.log(response.data)
+            dispatch({
+                type: 'DELETE_PRODUCT',
+                payload: slug
+            })
+            toast(`${response.data.message}`, 2000)
         }).catch(error => console.log(error))
     }
 }

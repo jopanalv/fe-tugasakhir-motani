@@ -8,7 +8,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import { useSelector } from 'react-redux';
 import Notification from './Notification';
 import Logo from '../assets/logo.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
     const theme = createTheme({
@@ -24,18 +24,29 @@ const Navbar = () => {
         },
     });
 
-    const [anchorEl, setAnchorEl] = useState(null);
+    const [anchorEl, setAnchorEl] = useState(null)
+    const [value, setValue] = useState()
+    const [inputValue, setInputValue] = useState('')
+
     const { isLoged, user } = useSelector(state => state.auth);
     const { products } = useSelector(state => state.product);
     const { categories } = useSelector(state => state.category);
 
-    const open = Boolean(anchorEl);
+    const open = Boolean(anchorEl)
+    const navigate = useNavigate()
+
     const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
+        setAnchorEl(event.currentTarget)
+    }
+
     const handleClose = () => {
-        setAnchorEl(null);
-    };
+        setAnchorEl(null)
+    }
+
+    const handleSearch = () => {
+        const slug = inputValue.split(' ').join('-').toLowerCase();
+        navigate(`/detail/${slug}`, { replace: true })
+    }
 
     return (
         <ThemeProvider theme={theme}>
@@ -44,11 +55,10 @@ const Navbar = () => {
                     <Grid container direction='row' justifyContent='space-between' alignItems='center'>
                         <Toolbar disableGutters>
                             <Link to='/' style={{ color: 'inherit', textDecoration: 'none' }}>
-                                <Button >
+                                <Button sx={{ display: { xs: 'none', md: 'block' } }}>
                                     <Box component='img' src={Logo} alt='logo website' sx={{
-                                        width: { xs: 50, md: 100 },
-                                        height: { xs: 20, md: 35 },
-                                        // display: { xs: 'none', md: 'block' }
+                                        width: 100,
+                                        height: 35,
                                     }} />
                                 </Button>
                             </Link>
@@ -85,8 +95,8 @@ const Navbar = () => {
                             >
                                 {categories?.map((category, index) => (
                                     <MenuItem key={index} onClick={handleClose}>
-                                        <Link to={`/category/${category.id}`} style={{ color: 'inherit', textDecoration: 'none' }}>
-                                            {category.name}
+                                        <Link to={`/category/${category?.id}`} style={{ color: 'inherit', textDecoration: 'none' }}>
+                                            {category?.name}
                                         </Link>
                                     </MenuItem>
                                 ))}
@@ -94,8 +104,16 @@ const Navbar = () => {
                             <Autocomplete
                                 freeSolo
                                 id="free-solo-2-demo"
+                                value={value}
+                                onChange={(event, newValue) => {
+                                    setValue(newValue)
+                                }}
+                                inputValue={inputValue}
+                                onInputChange={(event, newInputValue) => {
+                                    setInputValue(newInputValue)
+                                }}
                                 disableClearable
-                                options={products?.map((option) => option.name)}
+                                options={products?.map((option) => option?.name)}
                                 renderInput={(params) => (
                                     <TextField
                                         {...params}
@@ -107,12 +125,14 @@ const Navbar = () => {
                                             disableUnderline: true,
                                             endAdornment: (
                                                 <InputAdornment>
-                                                    <Search />
+                                                    <Button onClick={() => handleSearch()}>
+                                                        <Search />
+                                                    </Button>
                                                 </InputAdornment>
                                             )
                                         }}
                                         sx={{
-                                            width: { xs: 170, md: 300 },
+                                            width: { xs: 220, md: 300 },
                                             borderRadius: 4,
                                             border: 1,
                                             borderColor: grey[400],
@@ -126,7 +146,11 @@ const Navbar = () => {
                         </Stack>
                         {isLoged ? (
                             <Stack direction='row' spacing={1}>
-                                <Notification />
+                                {user.role === 'admin' ? (
+                                    null
+                                ) : (
+                                    <Notification />
+                                )}
                                 <Link to='/profile' style={{ color: 'inherit', textDecoration: 'none' }}>
                                     <Button sx={{ display: { xs: 'none', md: 'inherit' } }}>
                                         <Avatar>{user?.Profile.name[0]}</Avatar>
@@ -134,7 +158,6 @@ const Navbar = () => {
                                 </Link>
                             </Stack>
                         ) : (
-
                             <Button href='/login' variant='contained' startIcon={<LoginIcon />} sx={{ color: '#fff', display: { xs: 'none', md: 'inherit' } }}>
                                 <Link to={'/login'} style={{ color: 'inherit', textDecoration: 'none' }}>
                                     Login

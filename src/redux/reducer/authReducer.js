@@ -14,10 +14,6 @@ const authReducer = (state = initialState, action) => {
                 isLoged: true,
                 token: localStorage.getItem('accessToken')
             }
-        case 'REGISTER_USER':
-            return {
-                isLoged: false,
-            }
         case 'LOGOUT_USER':
             return {
                 user: null,

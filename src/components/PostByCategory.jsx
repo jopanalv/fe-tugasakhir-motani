@@ -7,12 +7,12 @@ import { getProducts } from '../redux/action/productAction';
 import CardList from './CardList';
 
 const PostByCategory = ({ category }) => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
 
-    const { products } = useSelector((state) => state.product);
+    const { products } = useSelector((state) => state.product)
 
     useEffect(() => {
-        dispatch(getProducts());
+        dispatch(getProducts())
     }, []);
 
     const theme = createTheme({

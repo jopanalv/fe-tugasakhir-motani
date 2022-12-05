@@ -1,10 +1,7 @@
-import { Container, Typography, Box, Stack, Grid, Avatar, Button, Divider } from '@mui/material';
-import React, { useState } from 'react';
+import { Container, Typography, Box, Grid } from '@mui/material';
+import React from 'react';
 import Navbar from '../components/Navbar';
-import { ArrowForwardIos, ViewList, AttachMoney, PendingActions, AddPhotoAlternate } from '@mui/icons-material';
-import { lightGreen, grey } from '@mui/material/colors';
-import { DataGrid } from '@mui/x-data-grid';
-import CardList from '../components/CardList';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import Footer from '../components/Footer';
 import BotNavbar from '../components/BotNavbar';
 import ProfileCard from '../components/ProfileCard';
@@ -12,48 +9,22 @@ import MenuSidebar from '../components/MenuSidebar';
 import NotFound from '../assets/notfound.png';
 import MenuSidebarMobile from '../components/MenuSidebarMobile';
 import { useSelector } from 'react-redux';
+import { formatDate } from '../utils/formatDate';
 
 const DashboardSellerRented = () => {
     const columns = [
         { field: 'no', headerName: 'No', width: 50 },
-        { field: 'produk', headerName: 'Produk', width: 140 },
-        { field: 'penyewa', headerName: 'Penyewa', width: 140 },
-        { field: 'mulaisewa', headerName: 'Mulai sewa', width: 110 },
+        { field: 'produk', headerName: 'Produk', width: 220 },
+        { field: 'penyewa', headerName: 'Penyewa', width: 150 },
+        { field: 'mulaisewa', headerName: 'Mulai sewa', width: 200 },
         { field: 'durasi', headerName: 'Durasi', width: 80 },
         { field: 'harga', headerName: 'Harga', width: 100 },
+        { field: 'total', headerName: 'Total', width: 100 },
         { field: 'status', headerName: 'Status', width: 80 },
     ];
 
     const { transactions } = useSelector(state => state.transaction)
-
-    // const response = {
-    //     status: 200,
-    //     products: [
-    //         {
-    //             id: 1,
-    //             name: 'traktor'
-    //         },
-    //         {
-    //             id: 2,
-    //             name: 'traktor 2'
-    //         }
-    //     ]
-    // }
-
-    // const products = response.products
-
-    // const rows = transactions.map((trans, index) => {
-    //     return {
-    //         id: trans.id,
-    //         no: index + 1,
-    //         produk: trans.Product.name,
-    //         penyewa: trans.Profile.name,
-    //         mulaisewa: trans.start_rent,
-    //         durasi: trans.duration,
-    //         harga: trans.offer_price,
-    //         status: trans.status
-    //     }
-    // })
+    const { user } = useSelector((state) => state.auth)
 
     const rows = transactions.filter((trans) => trans.status == 'completed').map((trans, index) => {
         return {
@@ -61,23 +32,20 @@ const DashboardSellerRented = () => {
             no: index + 1,
             produk: trans.Product.name,
             penyewa: trans.Profile.name,
-            mulaisewa: trans.start_rent,
-            durasi: trans.duration,
+            mulaisewa: formatDate(trans.start_rent),
+            durasi: trans.duration + ' hari',
             harga: trans.offer_price,
-            status: trans.status
+            total: trans.offer_price * trans.duration,
+            status: trans.status == 'completed' ? 'Selesai' : 'Menunggu'
         }
     })
-
-    // [
-    //     {id: 1, produk: 'produk 1'}
-    // ];
 
     return (
         <>
             <Navbar />
             <Container fixed sx={{ mt: 15, mb: 10 }}>
                 <Typography variant='h5' fontWeight='bold'>Dashboard Saya</Typography>
-                <ProfileCard />
+                <ProfileCard profile={user} />
                 <Grid container direction='row' justifyContent='space-between' mt={5}>
                     <MenuSidebar />
                     <MenuSidebarMobile />
@@ -87,6 +55,9 @@ const DashboardSellerRented = () => {
                             columns={columns}
                             pageSize={10}
                             rowsPerPageOptions={[10]}
+                            components={{
+                                Toolbar: GridToolbar,
+                            }}
                         />
                     </Box>
                 </Grid>

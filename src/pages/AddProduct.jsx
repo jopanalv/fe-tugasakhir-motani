@@ -8,6 +8,8 @@ import BotNavbar from '../components/BotNavbar';
 import { useDropzone } from 'react-dropzone';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProduct } from '../redux/action/productAction';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 const AddProduct = () => {
     const dispatch = useDispatch();
@@ -19,7 +21,7 @@ const AddProduct = () => {
     const [stock, setStock] = useState(0);
     const [category, setCategory] = useState(0);
 
-    const {categories} = useSelector((state) => state.category);
+    const { categories } = useSelector((state) => state.category);
 
     const onDrop = useCallback((acceptedFiles) => {
         setImage(
@@ -88,14 +90,36 @@ const AddProduct = () => {
                     }}>
                         <InputLabel id='demo-simple-select-label'>Kategori</InputLabel>
                         <Select labelId='demo-simple-select-label' value={category} onChange={(e) => setCategory(e.target.value)} id='demo-simple-select' label='Category'>
-                            <MenuItem value={1}>Kategori 1</MenuItem>
-                            <MenuItem value={2}>Kategori 2</MenuItem>
-                            <MenuItem value={3}>Kategori 3</MenuItem>
+                            {categories?.map((category) => (
+                                <MenuItem key={category.id} value={category.id}>{category.name}</MenuItem>
+                            ))}
                         </Select>
                     </FormControl>
                     <TextField id='outlined-basic' value={price} onChange={(e) => setPrice(e.target.value)} label='Harga' type='text' margin='normal' fullWidth />
                     <TextField id='outlined-basic' value={stock} onChange={(e) => setStock(e.target.value)} label='Stok' type='text' margin='normal' fullWidth />
-                    <TextField id='outlined-basic' value={description} onChange={(e) => setDescription(e.target.value)} multiline rows={5} label='Deskripsi' type='text' margin='normal' fullWidth />
+                    <CKEditor
+                        editor={ClassicEditor}
+                        data={description}
+                        config={{
+                            placeholder: 'Deskripsi Produk',
+                            toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'undo', 'redo']
+                        }}
+                        onReady={editor => {
+                            // You can store the "editor" and use when it is needed.
+                            editor.editing.view.change((writer) => {
+                                writer.setStyle(
+                                    'height',
+                                    '150px',
+                                    editor.editing.view.document.getRoot()
+                                );
+                            });
+                        }}
+                        onChange={(event, editor) => {
+                            const data = editor.getData();
+                            setDescription(data)
+                            console.log({ event, editor, data });
+                        }}
+                    />
                     <Button type='submit' variant='contained' size='large' sx={{
                         mt: 2,
                         mb: 7,

@@ -7,23 +7,36 @@ import { lightGreen } from '@mui/material/colors';
 
 const BotNavbar = () => {
     const { isLoged } = useSelector(state => state.auth)
+    const user = JSON.parse(localStorage.getItem('user'))
 
     return (
         <Box sx={{ borderTop: 5, borderTopColor: lightGreen[500], position: 'fixed', bottom: 0, left: 0, right: 0, display: { xs: 'block', md: 'none' } }} elevation={3}>
             {isLoged ? (
-                <BottomNavigation showLabels>
-                    <BottomNavigationAction component={Link} to='/' label='Home' icon={<Home />} />
-                    <BottomNavigationAction component={Link} to='/dashboard' label='Dashboard' icon={<Dashboard />} />
-                    <BottomNavigationAction component={Link} to='/cart' label='Cart' icon={<ShoppingCart />} />
-                    <BottomNavigationAction component={Link} to='/profile' label='Profile' icon={<Person />} />
-                </BottomNavigation>
+                user?.role == 'seller' ? (
+                    <BottomNavigation showLabels>
+                        <BottomNavigationAction component={Link} to='/' label='Home' icon={<Home />} />
+                        <BottomNavigationAction component={Link} to='/dashboard' label='Dashboard' icon={<Dashboard />} />
+                        <BottomNavigationAction component={Link} to='/profile' label='Profile' icon={<Person />} />
+                    </BottomNavigation>
+                ) : user?.role == 'admin' ? (
+                    <BottomNavigation showLabels>
+                        <BottomNavigationAction component={Link} to='/' label='Home' icon={<Home />} />
+                        <BottomNavigationAction component={Link} to='/admin' label='Dashboard' icon={<Dashboard />} />
+                        <BottomNavigationAction component={Link} to='/profile' label='Profile' icon={<Person />} />
+                    </BottomNavigation>
+                ) : (
+                    <BottomNavigation showLabels>
+                        <BottomNavigationAction component={Link} to='/' label='Home' icon={<Home />} />
+                        <BottomNavigationAction component={Link} to='/order' label='Cart' icon={<ShoppingCart />} />
+                        <BottomNavigationAction component={Link} to='/profile' label='Profile' icon={<Person />} />
+                    </BottomNavigation>
+                )
             ) : (
                 <BottomNavigation showLabels>
                     <BottomNavigationAction component={Link} to='/' label='Home' icon={<Home />} />
                     <BottomNavigationAction component={Link} to='/login' label='Login' icon={<Login />} />
                 </BottomNavigation>
             )}
-
         </Box>
     )
 }

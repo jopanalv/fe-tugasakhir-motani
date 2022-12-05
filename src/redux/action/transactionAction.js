@@ -1,4 +1,5 @@
 import axios from 'axios';
+import toast from 'react-simple-toasts';
 import { BASE_URL } from '../../utils/baseUrl';
 
 export const getAllTransaction = () => {
@@ -19,25 +20,60 @@ export const getAllTransaction = () => {
     }
 }
 
-export const createTransaction = (data) => {
+export const getTransactionDetail = (id) => {
+    const token = localStorage.getItem("accessToken");
+    return (dispatch) => {
+        axios({
+            method: 'GET',
+            url: `${BASE_URL}/transaction/detail/${id}`,
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((response) => {
+            dispatch({
+                type: 'GET_TRANSACTION_DETAIL',
+                payload: response.data.data
+            })
+        }).catch(error => console.log(error))
+    }
+}
+
+export const createTransaction = (data, slug) => {
     const token = localStorage.getItem("accessToken");
     return (dispatch) => {
         axios({
             method: 'POST',
-            url: `${BASE_URL}/transaction/${data.slug}`,
+            url: `${BASE_URL}/transaction/${slug}`,
             headers: {
                 Authorization: `Bearer ${token}`,
             },
-            data: {
-                'offer_price': data.offer,
-                'start_rent': data.start,
-                'duration': data.duration,
-            }
+            data: data
         }).then((response) => {
+            toast(`${response.data.message}`, 3000, 'green')
             dispatch({
                 type: 'CREATE_TRANSACTION',
                 payload: response.data.data
             })
-        }).catch(error => console.log(error))
+        }).catch(error => toast(`${error.response.data.message}`))
+    }
+}
+
+export const updateTransaction = (data) => {
+    const token = localStorage.getItem("accessToken");
+    console.log(data)
+    return (dispatch) => {
+        axios({
+            method: 'PUT',
+            url: `${BASE_URL}/transaction/${data.status}/${data.id}`,
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }).then((response) => {
+            dispatch({
+                type: 'UPDATE_TRANSACTION',
+                payload: response.data.data
+            })
+        }
+        ).catch(error => console.log(error))
     }
 }

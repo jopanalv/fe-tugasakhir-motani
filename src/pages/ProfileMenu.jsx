@@ -1,7 +1,7 @@
 import React from 'react';
 import StaticNavbar from '../components/StaticNavbar';
 import { Avatar, Button, Stack, Typography, Container, Grid } from '@mui/material';
-import { Settings, ShoppingCart, Logout } from '@mui/icons-material';
+import { Settings, ShoppingCart, Logout, Dashboard } from '@mui/icons-material';
 import { lightGreen, grey } from '@mui/material/colors';
 import BotNavbar from '../components/BotNavbar';
 import Footer from '../components/Footer';
@@ -18,13 +18,13 @@ const ProfileMenu = () => {
         dispatch(LogoutUser())
 
         navigate('/')
-    } 
+    }
     return (
         <>
             <StaticNavbar title='Menu Profil' />
             <Container fixed>
                 <Stack justifyContent='center' alignItems='center' spacing={2}>
-                    <Avatar alt='profile image' sx={{ width: 100, height: 100, mt: 13, fontSize: 50, fontWeight: 'bold' }}>{user?.Profile.name[0]}</Avatar>
+                    <Avatar alt='profile image' sx={{ width: 100, height: 100, mt: 13, fontSize: 50, fontWeight: 'bold' }}><img src={user?.Profile.image} alt='avatar user' /></Avatar>
                     <Typography variant='h6'>{user.Profile.name}</Typography>
                 </Stack>
                 <Stack mt={5} spacing={3} sx={{ mb: 13.5, mx: { xs: 0, md: 30 } }}>
@@ -36,14 +36,34 @@ const ProfileMenu = () => {
                             </Grid>
                         </Button>
                     </Link>
-                    <Link to='/dashboard' style={{ textDecoration: 'none' }}>
-                        <Button sx={{ p: 2, borderBottom: 3, borderBottomColor: lightGreen[500], borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }} fullWidth>
-                            <Grid container direction='row' justifyContent='space-between' alignItems='center'>
-                                <Typography color={'#000'}>Dashboard Saya</Typography>
-                                <ShoppingCart sx={{ color: lightGreen[500] }} />
-                            </Grid>
-                        </Button>
-                    </Link>
+                    {user?.role == 'seller' ? (
+                        <Link to='/dashboard' style={{ textDecoration: 'none' }}>
+                            <Button sx={{ p: 2, borderBottom: 3, borderBottomColor: lightGreen[500], borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }} fullWidth>
+                                <Grid container direction='row' justifyContent='space-between' alignItems='center'>
+                                    <Typography color={'#000'}>Dashboard Saya</Typography>
+                                    <Dashboard sx={{ color: lightGreen[500] }} />
+                                </Grid>
+                            </Button>
+                        </Link>
+                    ) : user?.role == 'admin' ? (
+                        <Link to='/admin' style={{ textDecoration: 'none' }}>
+                            <Button sx={{ p: 2, borderBottom: 3, borderBottomColor: lightGreen[500], borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }} fullWidth>
+                                <Grid container direction='row' justifyContent='space-between' alignItems='center'>
+                                    <Typography color={'#000'}>Dashboard Admin</Typography>
+                                    <Dashboard sx={{ color: lightGreen[500] }} />
+                                </Grid>
+                            </Button>
+                        </Link>
+                    ) : (
+                        <Link to='/order' style={{ textDecoration: 'none' }}>
+                            <Button sx={{ p: 2, borderBottom: 3, borderBottomColor: lightGreen[500], borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }} fullWidth>
+                                <Grid container direction='row' justifyContent='space-between' alignItems='center'>
+                                    <Typography color={'#000'}>Pesanan Saya</Typography>
+                                    <ShoppingCart sx={{ color: lightGreen[500] }} />
+                                </Grid>
+                            </Button>
+                        </Link>
+                    )}
                     <Button onClick={() => handleLogout()} sx={{ p: 2, borderBottom: 3, borderBottomColor: lightGreen[500], borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }} fullWidth>
                         <Grid container direction='row' justifyContent='space-between' alignItems='center'>
                             <Typography color={'#000'}>Keluar</Typography>
