@@ -5,6 +5,7 @@ import categoryReducer from './categoryReducer';
 import transactionReducer from './transactionReducer';
 import userReducer from './userReducer';
 import bannerReducer from './bannerReducer';
+import reviewReducer from './reviewReducer';
 
 export default combineReducers({
     auth: authReducer,
@@ -13,4 +14,5 @@ export default combineReducers({
     transaction: transactionReducer,
     user: userReducer,
     banner: bannerReducer,
+    review: reviewReducer
 });

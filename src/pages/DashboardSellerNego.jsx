@@ -2,9 +2,7 @@ import { Container, Typography, Box, Stack, Grid, Avatar, Button, Divider, Tabs,
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import { ArrowForwardIos, ViewList, AttachMoney, PendingActions, AddPhotoAlternate, Check } from '@mui/icons-material';
-import { lightGreen, grey } from '@mui/material/colors';
 import PropTypes from 'prop-types';
-import CardList from '../components/CardList';
 import Footer from '../components/Footer';
 import BotNavbar from '../components/BotNavbar';
 import ProfileCard from '../components/ProfileCard';
@@ -14,9 +12,7 @@ import MenuSidebarMobile from '../components/MenuSidebarMobile';
 import NegoCard from '../components/NegoCard';
 import { useDispatch, useSelector } from 'react-redux';
 import CardNego from '../components/CardNego';
-import { useEffect } from 'react';
 import { getTransaction } from '../redux/action/transactionAction';
-import { useParams } from 'react-router-dom';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;

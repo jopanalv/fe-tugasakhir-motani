@@ -19,7 +19,8 @@ export const addProduct = (data) => {
                 type: 'ADD_PRODUCT',
                 payload: response.data.data
             })
-        }).catch(error => console.log(error))
+            toast(`${response.data.message}`, 2000)
+        }).catch(error => toast(`${error.response.data.message}`, 2000))
     }
 }
 

@@ -17,6 +17,7 @@ const DashboardAdminBanner = () => {
     const [open, setOpen] = useState(false)
     const [image, setImage] = useState([])
 
+    const user = JSON.parse(localStorage.getItem('user'))
     const { banner } = useSelector(state => state.banner)
 
     const dispatch = useDispatch()
@@ -63,7 +64,7 @@ const DashboardAdminBanner = () => {
             <Navbar />
             <Container fixed sx={{ mt: 15, mb: 10 }}>
                 <Typography variant='h5' fontWeight='bold'>Dashboard Saya</Typography>
-                <ProfileCard />
+                <ProfileCard profile={user} />
                 <Grid container direction='row' justifyContent='space-between' mt={5}>
                     <MenuSidebar />
                     <MenuSidebarMobile />

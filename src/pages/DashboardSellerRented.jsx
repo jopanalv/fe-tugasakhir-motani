@@ -10,6 +10,7 @@ import NotFound from '../assets/notfound.png';
 import MenuSidebarMobile from '../components/MenuSidebarMobile';
 import { useSelector } from 'react-redux';
 import { formatDate } from '../utils/formatDate';
+import { formatCurrency } from '../utils/formatCurrency';
 
 const DashboardSellerRented = () => {
     const columns = [
@@ -34,8 +35,8 @@ const DashboardSellerRented = () => {
             penyewa: trans.Profile.name,
             mulaisewa: formatDate(trans.start_rent),
             durasi: trans.duration + ' hari',
-            harga: trans.offer_price,
-            total: trans.offer_price * trans.duration,
+            harga: formatCurrency(trans.offer_price),
+            total: formatCurrency(trans.offer_price * trans.duration),
             status: trans.status == 'completed' ? 'Selesai' : 'Menunggu'
         }
     })

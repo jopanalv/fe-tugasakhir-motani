@@ -3,7 +3,7 @@ import { Badge, Box, Divider, Fade, IconButton, Paper, Popper, Typography } from
 import { red } from '@mui/material/colors';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getAllTransaction } from '../redux/action/transactionAction';
 import CardNotif from './CardNotif';
 
@@ -14,6 +14,7 @@ const Notification = () => {
     const [isInvisible, setIsInvisible] = useState(false);
 
     const dispatch = useDispatch()
+    const { transactions } = useSelector(state => state.transaction)
 
     const handleClick = (newPlacement) => (event) => {
         setAnchorEl(event.currentTarget);
@@ -38,7 +39,7 @@ const Notification = () => {
                     <Fade {...TransitionProps} timeout={350}>
                         <Box bgcolor='white' p={2} sx={{ boxShadow: 3, width: { xs: 300, md: 380 } }}>
                             <Divider textAlign="left">Notifikasi</Divider>
-                            <CardNotif />
+                            <CardNotif transactions={transactions} />
                         </Box>
                     </Fade>
                 )}

@@ -2,11 +2,12 @@ import { Box, Button, Divider, Grid, Stack, Typography } from '@mui/material';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { formatCurrency } from '../utils/formatCurrency';
+import { formatDate } from '../utils/formatDate';
 // import Traktor from '../assets/Traktor.svg';
 
-const CardNotif = () => {
+const CardNotif = ({transactions}) => {
   const user = JSON.parse(localStorage.getItem('user'))
-  const { transactions } = useSelector(state => state.transaction)
 
   return (
     <>
@@ -19,8 +20,8 @@ const CardNotif = () => {
                   <Box component='img' src={transaction?.Product?.image} width={65} sx={{ display: { xs: 'none', md: 'block' } }} />
                   <Stack direction='column' ml={2}>
                     <Typography variant='body1' fontWeight='bold' align='start' color='black'>{transaction?.Product?.name}</Typography>
-                    <Typography variant='caption' align='start' color='black'>Rp {transaction?.offer_price} / hari</Typography>
-                    <Typography variant='caption' align='start' color='black' sx={{ whiteSpace: 'normal' }}>Nego disetujui seller dan akan <br /> segera dihubungi seller.</Typography>
+                    <Typography variant='caption' align='start' color='black'>{formatCurrency(transaction?.offer_price)} / hari</Typography>
+                    <Typography variant='caption' align='start' color='black' sx={{ whiteSpace: 'normal' }}>Nego sudah disetujui, pesanan akan <br/> diantar {formatDate(transaction?.start_rent)} <br/> Jam 09.00.</Typography>
                   </Stack>
                 </Grid>
               </Button>
@@ -37,8 +38,8 @@ const CardNotif = () => {
                   <Box component='img' src={transaction?.Product?.image} width={65} sx={{ display: { xs: 'none', md: 'block' } }} />
                   <Stack direction='column' ml={2}>
                     <Typography variant='body1' fontWeight='bold' align='start' color='black'>{transaction?.Product?.name}</Typography>
-                    <Typography variant='caption' align='start' color='black'>Rp {transaction?.Product?.price} / hari</Typography>
-                    <Typography variant='caption' align='start' color='black' sx={{ whiteSpace: 'normal' }}>Produkmu ditawar Rp {transaction?.offer_price} / hari.</Typography>
+                    <Typography variant='caption' align='start' color='black'>{formatCurrency(transaction?.Product?.price)} / hari</Typography>
+                    <Typography variant='caption' align='start' color='black' sx={{ whiteSpace: 'normal' }}>Produkmu ditawar {formatCurrency(transaction?.offer_price)} / hari.</Typography>
                   </Stack>
                 </Grid>
               </Button>
