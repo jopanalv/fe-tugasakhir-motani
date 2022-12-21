@@ -54,14 +54,14 @@ const Navbar = () => {
                 <Container disableGutters={true}>
                     <Grid container direction='row' justifyContent='space-between' alignItems='center'>
                         <Toolbar disableGutters>
-                            <Link to='/' style={{ color: 'inherit', textDecoration: 'none' }}>
-                                <Button sx={{ display: { xs: 'none', md: 'block' } }}>
+                            {/* <Link to='/' style={{ color: 'inherit', textDecoration: 'none' }}> */}
+                                <Button href='/' sx={{ display: { xs: 'none', md: 'block' } }}>
                                     <Box component='img' src={Logo} alt='logo website' sx={{
                                         width: 100,
                                         height: 35,
                                     }} />
                                 </Button>
-                            </Link>
+                            {/* </Link> */}
                         </Toolbar>
                         <Stack direction='row' spacing={1}>
                             <Button

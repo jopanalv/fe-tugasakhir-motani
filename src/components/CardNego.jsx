@@ -1,8 +1,9 @@
 import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material';
 import React from 'react';
-import Traktor from '../assets/Traktor.svg';
-import { green } from '@mui/material/colors';
 import { Link } from 'react-router-dom';
+import { formatCurrency } from '../utils/formatCurrency';
+import subDate from '../utils/subDate';
+import sumDate from '../utils/sumDate';
 
 const CardNego = ({ product }) => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -18,11 +19,14 @@ const CardNego = ({ product }) => {
                         <Typography variant='caption' color='text.secondary'>
                             {product.Product.Category.name}
                         </Typography>
-                        <Typography variant='body1'>
-                            Rp <s>{product.Product.price}</s>
+                        <Typography variant='body2'>
+                            <s>{formatCurrency(product.Product.price)}</s>
                         </Typography>
-                        <Typography variant='body1'>
-                            Jadi Rp {product.offer_price}
+                        <Typography variant='body2'>
+                            Jadi {formatCurrency(product.offer_price)}
+                        </Typography>
+                        <Typography variant='body2'>
+                            Tersisa {subDate(Date.now(), sumDate(product.start_rent, product.duration))} hari
                         </Typography>
                     </CardContent>
                 </CardActionArea>

@@ -71,7 +71,7 @@ const MyOrder = () => {
                 <Container fixed>
                     <Grid container justifyContent='center'>
                         <Box />
-                        <Box my={13} width={600} height={460}>
+                        <Box my={13} width={600} height={460} overflow={'auto'}>
                             <Tabs value={value} onChange={handleChange} textColor='primary' indicatorColor='primary' centered>
                                 <Tab icon={<PendingActions />} label="PENDING" />
                                 <Tab icon={<Check />} label="DISETUJUI" />

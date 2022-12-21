@@ -69,6 +69,7 @@ export const updateTransaction = (data) => {
                 Authorization: `Bearer ${token}`,
             },
         }).then((response) => {
+            toast(`${response.data.message}`, 3000, 'green')
             dispatch({
                 type: 'UPDATE_TRANSACTION',
                 payload: response.data.data

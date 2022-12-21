@@ -10,9 +10,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addProduct } from '../redux/action/productAction';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { useNavigate } from 'react-router-dom';
 
 const AddProduct = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [image, setImage] = useState([]);
     const [name, setName] = useState('');
@@ -57,6 +59,7 @@ const AddProduct = () => {
         formData.append('image', image[0]);
 
         dispatch(addProduct(formData));
+
     };
 
     return (
